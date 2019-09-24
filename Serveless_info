@@ -1,0 +1,10 @@
+Artigos bases:
+para serveless + python para o bot
+    https://hackernoon.com/serverless-telegram-bot-on-aws-lambda-851204d4236c
+para a api em python do telegram 
+    https://github.com/jonatasbaldin/serverless-telegram-bot
+
+é preciso executar alguns passos, recomendo a leitura do primeiro artigo para entender como colocar o bot vivo
+Apos, no github linkado há um exemplo bem legal de serveless com a API, com base nisso adaptei o que ja tinha feiti
+
+Vejam que no arquivo requirements.txt há a principal diferença, é o resposanvel por 
