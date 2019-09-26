@@ -101,6 +101,24 @@ def contarCaracteres(update, context, id, bot):
         MsgEnv = MsgEnv + "\nNesse caso pareceu ser interessante separar as minusculas, aqui: " + strLower
     bot.sendMessage(chat_id=id, text=MsgEnv)
 
+def botTalk(LambdaTalks):
+    
+    entrada = json.loads(LambdaTalks) ## pegamos a entrada
+
+    mensagem = entrada.get("mensagem") # a msg
+    id = int(entrada.get("id")) # a id
+    formato = entrada.get("formato") # o formato   
+    bot = configure_telegram() # criamos uma instancia de bot ;)
+
+    if formato == 'texto' :
+        logger.info ('enviado um texto')
+        bot.sendMessage(chat_id=id, text=mensagem + str(id))
+    if formato == 'imagem' :
+        logger.info ('enviado uma imagem')
+        bot.sendPhoto(chat_id=id, photo=mensagem)
+    if formato == 'documento':
+        logger.info ('enviado um documento')
+        bot.sendDocument(chat_id=id, document=mensagem)  
 
 ## nosso main, aqui nosso robo inicia e fica rodando em loop
 def hello(event, context):
@@ -126,7 +144,21 @@ def hello(event, context):
         if text and text.startswith('/contar'):
             logger.info('entrou no contar')
             contarCaracteres(update,context,chat_id,bot)
-
+        if text and text.startswith('/imagem') :
+            jhon = '''{ "mensagem": "https://lovehaswon.org/wp-content/uploads/2019/07/mother_nature_by_nocluse-db5z2sy.jpg", 
+"formato" : "imagem" , 
+"id": " ''' + str(chat_id) + '''" } '''  
+            botTalk(jhon)
+        if text and text.startswith('/documento'):
+            jhon = '''{ "mensagem": "https://www.pucpcaldas.br/graduacao/administracao/revista/artigos/v4n2/v4n2a5.pdf", 
+"formato" : "documento" , 
+"id": " ''' + str(chat_id) + '''" } '''  
+            botTalk(jhon)
+        if text and text.startswith('/texto'):
+            jhon = '''{ "mensagem": "isso é uma simples mensagem, aproveite. Seu chat_id: ", 
+"formato" : "texto" , 
+"id": " ''' + str(chat_id) + '''" } '''  
+            botTalk(jhon)
 
         # bot.sendMessage(chat_id=chat_id, text=text)
         logger.info('Message sent')

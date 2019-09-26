@@ -21,3 +21,6 @@ teste.py
 
 # Serverless directories
 .serverless
+
+#arquivos do mac :(
+.DS_Store
