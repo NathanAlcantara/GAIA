@@ -31,7 +31,7 @@ def lambda_handler(event, context):
             document = message['document']
             file_id = document['file_id']
             file_name = document['file_name']
-            if document['mime_type'] == 'application/pdf':
+            if '.pdf' in file_name:
                 # Disparar aviso para SNS de PDFs
                 publish_sns_pdf(message)
             reply += 'File id:' + file_id + '\n'
