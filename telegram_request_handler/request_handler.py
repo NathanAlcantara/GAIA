@@ -13,10 +13,10 @@ def send_message(text, chat_id):
 
 
 def publish_sns_pdf(message):
-    topic_arn = os.environ('PDFTopicARN')
+    topic_arn = os.environ['PDFTopicARN']
     sns_client = client('sns')
-    client.publish(
-        TopicARN=topic_arn,
+    sns_client.publish(
+        TopicArn=topic_arn,
         Message=json.dumps(message)
     )
 
@@ -31,13 +31,13 @@ def lambda_handler(event, context):
             document = message['document']
             file_id = document['file_id']
             file_name = document['file_name']
-            if '.pdf' in file_name:
+            if document['mime_type'] == 'application/pdf':
                 # Disparar aviso para SNS de PDFs
                 publish_sns_pdf(message)
             reply += 'File id:' + file_id + '\n'
             reply += 'File name:' + file_name
         else:
-            reply = 'Ainda não sei lidar com esse tipo de mensagem'
+            reply += 'Ainda não sei lidar com esse tipo de mensagem'
         send_message(reply, chat_id)
     return {
         'statusCode': 200
