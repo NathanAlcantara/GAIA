@@ -82,7 +82,7 @@ def lambda_handler(event, context):
 
     # Solicita ao textract análise do documento
     response = iniciar_analise_textract(file_name)
-    job_id = response['JobId ']
+    job_id = response['JobId']
 
     # Publica a mensagem na fila do SQS
     publicar_mensagem_sqs(file_name, job_id)
