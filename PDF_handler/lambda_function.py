@@ -54,19 +54,6 @@ def iniciar_analise_textract(file_name):
     )
 
 
-def publicar_mensagem_sqs(file_name, job_id):
-    sqs_queue_url = os.environ['SQSQueueTextractURL']
-    sqs_client = client('sqs')
-    message_body = {
-        'job_id': job_id,
-        'file_name': file_name
-    }
-    client.send_message(
-        QueueUrl=sqs_queue_url,
-        MessageBody=json.dumps(message_body)
-    )
-
-
 def lambda_handler(event, context):
     message = json.loads(event['Records'][0]['Sns']['Message'])
     document = message['document']
@@ -83,8 +70,5 @@ def lambda_handler(event, context):
     # Solicita ao textract análise do documento
     response = iniciar_analise_textract(file_name)
     job_id = response['JobId']
-
-    # Publica a mensagem na fila do SQS
-    publicar_mensagem_sqs(file_name, job_id)
 
     return job_id
