@@ -8,7 +8,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), "./ven
 
 import requests
 
-from telegram import Bot, Update
+from telegram import Bot, Update, ParseMode
 
 # Logging is cool!
 logger = logging.getLogger()
@@ -52,12 +52,13 @@ logger.setLevel(logging.INFO)
 # imagem = imagem
 # documento = documento
 # audio = msg de audio
+# markdown = texto com formatacao
 def botTalk(LambdaTalks):
-
+  
     entrada = json.loads(LambdaTalks) ## pegamos a entrada
 
     mensagem = entrada.get("mensagem") # a msg
-    id = entrada.get("id") # a id
+    id = int(entrada.get("id")) # a id
     formato = entrada.get("formato") # o formato   
     bot = configure_telegram() # criamos uma instancia de bot ;)
 
@@ -66,9 +67,16 @@ def botTalk(LambdaTalks):
         bot.sendMessage(chat_id=id, text=mensagem)
     if formato == 'imagem' :
         logger.info ('enviado uma imagem')
-        bot.sendMessage(chat_id=id, text='resultado?', photo=mensagem)
+        bot.sendPhoto(chat_id=id, photo=mensagem)
     if formato == 'documento':
         logger.info ('enviado um documento')
-        bot.sendMessage(chat_id=id, text='resultado?', document=mensagem)        
+        bot.sendDocument(chat_id=id, document=mensagem)  
+    if formato == 'html':
+        logger.info ('enviado um texto markdown')
+        bot.sendMessage(chat_id=id, text = mensagem, parse_mod=ParseMode.HTML)
+    if formato == 'audio':
+        logger.info ('enviado um audio')
+        bot.sendAudio(chat_id=id, audio = mensagem)
+
     
     
