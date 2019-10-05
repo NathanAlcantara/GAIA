@@ -42,6 +42,11 @@ def lambda_handler(event, context):
     # Extrai tabelas
     tables = [block for block in blocks if block['BlockType'] == 'TABLE']
 
+    # TODO Estender totalmente tabelas em colunas e linhas contendo blocos de células
+    # TODO Identificar tabela de informações da prova
+    # TODO Converter blocos de célula em textos concatenados
+    # TODO Concatenar todos os textos por coluna
+
     # Extrai blocos de célula que contém texto
     tables_rels_list = [[rel_list for rel_list in table['Relationships']] for table in tables]
 
@@ -50,13 +55,13 @@ def lambda_handler(event, context):
         for rel_list in tables_rels_list
     ]
 
-    tables_childs_blocks = [
-        [block for block in blocks if block['Id'] in child_ids]
+    tables_childs_cells = [
+        [block for block in blocks if block['Id'] in child_ids and block['BlockType'] == 'CELL']
         for relationships in tables_childs_ids for child_ids in relationships
     ]
 
     cells_with_text = [
-        [cell for cell in child_list if 'Relationships' in cell] for child_list in tables_childs_blocks
+        [cell for cell in child_list if 'Relationships' in cell] for child_list in tables_childs_cells
     ]
 
     # Extrai e lista textos das células
@@ -84,16 +89,15 @@ def lambda_handler(event, context):
 
     cells_text_blocks = [
         [
-            [
-                [block for block in child_blocks if 'Text' in block]
-                for child_blocks in cell
-            ] for cell in table
+            [block for block in child_blocks if 'Text' in block]
+            for cell in table
+            for child_blocks in cell
         ] for table in cells_child_blocks
     ]
 
     cells_texts = [
         [
-            [block['Text'] for text_blocks in cell for block in text_blocks]
+            [block['Text'] for block in cell]
             for cell in table
         ] for table in cells_text_blocks
     ]
