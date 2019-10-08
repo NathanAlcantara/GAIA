@@ -1,0 +1,10 @@
+{
+  "SNS": "send-telegram-response",
+  "Input": {
+    "chatId": "string",
+    "message": "string"
+  },
+  "Output": {
+    "Telegram": "string"
+  }
+}

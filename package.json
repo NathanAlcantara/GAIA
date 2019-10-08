@@ -1,0 +1,17 @@
+{
+  "name": "gaia-bot",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "deployDev": "bash scripts/deployDev.sh"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.30.0",
+    "serverless-pseudo-parameters": "^2.4.0",
+    "serverless-python-requirements": "^4.2.5"
+  },
+  "main": "index.js",
+  "devDependencies": {
+    "serverless-bundle": "^1.2.5"
+  }
+}

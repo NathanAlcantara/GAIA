@@ -1,0 +1,27 @@
+version: 0.1
+
+phases:
+  install:
+    commands:
+      - rm package-lock.json
+      - npm install --silent --no-progress -g npm
+      - npm install --silent --no-progress -g serverless
+      - npm --version
+  pre_build:
+    commands:
+      - npm install --silent --no-progress
+  build:
+    commands:
+      - mkdir -p target/stg
+      - mkdir target/prod
+      - sed -i "s/\${telegramToken}/$telegramToken/" serverless.yml;
+      - sed -i "s/\${org}/$serverlessUser/" serverless.yml;
+      - sed -i "s/\${app}/$name/" serverless.yml;
+      - serverless package --package target/dev --stage dev -v -r us-east-1
+      - serverless package --package target/prod --stage prod -v -r us-east-1
+
+artifacts:
+  files:
+    - target/**/*
+    - serverless.yml
+    - deploy.sh
