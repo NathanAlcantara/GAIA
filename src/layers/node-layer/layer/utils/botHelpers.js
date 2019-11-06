@@ -21,6 +21,10 @@ module.exports.isCommandExistPrototype = function(command) {
 };
 
 module.exports.executeMethodBot = async (methodName, methodBody) => {
+  console.log(
+    `Chamando API ${methodName} com o corpo ${JSON.stringify(methodBody)}`
+  );
+
   const options = {
     method: "POST",
     uri: `https://api.telegram.org/bot${TELEGRAM_TOKEN}/${methodName}`,

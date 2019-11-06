@@ -9,20 +9,45 @@ module.exports.send = async (event, context, callback) => {
 
   console.log(`Recebendo para envio o evento: ${JSON.stringify(data)}`);
 
-  const { chatId: chat_id, message, messageType } = data;
+  let command, bodyToSend;
+  const { chatId: chat_id, messageType } = data;
+  const { message, fileId } = data;
 
-  if (chat_id && message) {
-    console.log(`Enviando mesagem: ${message}`);
+  if (chat_id && messageType) {
+    console.log(`Enviando uma mesagem do tipo: ${messageType}`);
     switch (messageType) {
       case "text":
-        executeMethodBot("sendMessage", { chat_id, text: message });
+        command = "sendMessage";
+        bodyToSend = { text: message };
+        console.log(`Enviando texto: ${message}`);
+        break;
+      case "photo":
+        command = "sendPhoto";
+        bodyToSend = { photo: fileId };
+        console.log(`Enviando photo com o fileId: ${fileId}`);
+        break;
+      case "audio":
+        command = "sendAudio";
+        bodyToSend = { audio: fileId };
+        console.log(`Enviando audio com o fileId: ${fileId}`);
+        break;
+      case "document":
+        command = "sendDocument";
+        bodyToSend = { document: fileId };
+        console.log(`Enviando documento com o fileId: ${fileId}`);
         break;
       default:
         return generateError(callback, "MessageType not found");
     }
 
+    if (message || fileId) {
+      executeMethodBot(command, { ...{ chat_id }, ...bodyToSend });
+    } else {
+      return generateError(callback, "Body to telegram is invalid");
+    }
+
     return generateSuccess(callback);
   }
 
-  return generateError(callback, "ChatId and Message are required");
+  return generateError(callback, "ChatId and MessageType are required");
 };
