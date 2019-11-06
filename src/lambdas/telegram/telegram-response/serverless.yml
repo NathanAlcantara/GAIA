@@ -1,0 +1,15 @@
+service: s${tenant}-end-bot
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+functions:
+  telegramResponse:
+    name: ${tenant}-telegram-response
+    description: Sends a message/response to telegram
+    handler: handler.send
+    layers:
+      - ${cf:node-layer-${opt:stage}.NodeLayer}
+    events:
+      - sns: ${tenant}-send-telegram-response

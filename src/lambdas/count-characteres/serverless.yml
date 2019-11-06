@@ -1,0 +1,13 @@
+service: ${tenant}-count-characteres
+
+provider:
+  name: aws
+  runtime: python3.7
+
+functions:
+  countCharacteres:
+    name: ${tenant}-count-characteres
+    description: Conta caracteres
+    handler: handler.count
+    events:
+      - sns: ${tenant}-count-characteres

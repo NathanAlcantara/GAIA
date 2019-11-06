@@ -1,0 +1,10 @@
+{
+  "SNS": "count-characteres",
+  "Input": {
+    "chatId": "string",
+    "message": {
+      "characteres": "string"
+    }
+  },
+  "Output": "Publica a mensagem de contagem no sns 'send-telegram-response'"
+}

@@ -1,0 +1,22 @@
+service: ${tenant}-node-layer
+
+provider:
+  name: aws
+  environment:
+    NODE_PATH: "./:/opt/node_modules"
+
+layers:
+  node:
+    path: layer
+    name: ${tenant}-node-layer
+    description: Utilitários para node
+    compatibleRuntimes:
+      - nodejs10.x
+    
+resources:
+  Outputs:
+    NodeLayer:
+        Value:
+          Ref: NodeLambdaLayer
+        Export:
+          Name: NodeLambdaLayer

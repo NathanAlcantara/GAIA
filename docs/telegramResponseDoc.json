@@ -1,0 +1,9 @@
+{
+  "SNS": "send-telegram-response",
+  "Input": {
+    "chatId": "string",
+    "message": "string",
+    "messageType": "text"
+  },
+  "Output": "Envia uma mensagem ao telegram com o tipo que foi definido"
+}

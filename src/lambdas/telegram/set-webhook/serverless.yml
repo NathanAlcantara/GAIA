@@ -1,0 +1,25 @@
+service: ${tenant}-set-bot
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  apiGateway:
+    restApiId:
+      Fn::ImportValue: TelegramApiGateway-restApiId-${opt:stage}
+    restApiRootResourceId:
+      Fn::ImportValue: TelegramApiGateway-rootResourceId-${opt:stage}
+    restApiResources:
+      telegram: { 'Fn::ImportValue': 'TelegramApiGateway-pathTelegram-${opt:stage}' }
+
+functions:
+  setWebhook:
+    name: ${tenant}-set-webhook
+    description: Function to set the URL for webhook of a telegram bot
+    handler: handler.setWebhook
+    layers:
+      - ${cf:node-layer-${opt:stage}.NodeLayer}
+    events:
+      - http:
+          path: /telegram/${tenant}
+          method: get
+          cors: true

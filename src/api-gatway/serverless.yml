@@ -1,0 +1,39 @@
+service: telegram-api
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+resources:
+  Resources:
+    TelegramApiGW:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        Name: TelegramApiGW
+    TelegramApiGWPathTelegram:
+      Type: AWS::ApiGateway::Resource
+      Properties:
+        RestApiId: { Ref: "TelegramApiGW" }
+        ParentId: { Fn::GetAtt: "TelegramApiGW.RootResourceId" }
+        PathPart: telegram
+
+  Outputs:
+    apiGatewayRestApiId:
+      Value:
+        Ref: TelegramApiGW
+      Export:
+        Name: TelegramApiGateway-restApiId-${opt:stage}
+
+    apiGatewayRestApiRootResourceId:
+      Value:
+        Fn::GetAtt:
+          - TelegramApiGW
+          - RootResourceId
+      Export:
+        Name: TelegramApiGateway-rootResourceId-${opt:stage}
+
+    apiGatewayRestApiPathTelegram:
+      Value:
+        Ref: TelegramApiGWPathTelegram
+      Export:
+        Name: TelegramApiGateway-pathTelegram-${opt:stage}

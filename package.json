@@ -1,0 +1,9 @@
+{
+  "name": "gaia-bot",
+  "description": "Telegram Bot GAIA",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "deployDev": "bash scripts/deployAll.sh dev"
+  }
+}

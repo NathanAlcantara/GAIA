@@ -1,0 +1,10 @@
+{
+  "name": "layer",
+  "description": "Utilitário para as funções node",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7"
+  }
+}

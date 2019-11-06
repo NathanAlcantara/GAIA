@@ -1,0 +1,31 @@
+
+service: ${tenant}-handler-bot
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  apiGateway:
+    restApiId:
+      Fn::ImportValue: TelegramApiGateway-restApiId-${opt:stage}
+    restApiRootResourceId:
+      Fn::ImportValue: TelegramApiGateway-rootResourceId-${opt:stage}
+    restApiResources:
+      telegram: { 'Fn::ImportValue': 'TelegramApiGateway-pathTelegram-${opt:stage}' }
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - sns:Publish
+      Resource: "arn:aws:sns:*:*:*"
+
+functions:
+  telegramHandler:
+    name: ${tenant}-telegram-handler
+    description: Handles the message from telegram
+    handler: handler.main
+    layers:
+      - ${cf:node-layer-${opt:stage}.NodeLayer}
+    events:
+      - http:
+          path: /telegram/${tenant}${telegramTokenId}
+          method: post
+          cors: true
