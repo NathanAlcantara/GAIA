@@ -25,6 +25,8 @@
 
 1. Primeiramente, na sua conta serverless você deve criar uma aplicação com o seu nome, ex: `david`;
 
+- Caso deseje usar o serverless dashboard para depuração você precisa [configurar](https://serverless.com/framework/docs/providers/aws/cli-reference/config-credentials/) a sua conta AWS
+
 - Após isso, podemos ver que no projeto temos uma pasta de scripts, onde existe um bash script chamado `deployAll.sh` onde será usado para criar nosso ambiente.
 
 2. Para isso, você precisa criar um arquivo chamado `enviroments.json` na raiz do projeto que vai conter as variavéis de ambiente:
@@ -90,7 +92,7 @@ PSSSS: Temos uma pasta chamada `docs` onde lá fica definido os contratos de tod
 
 ## Leituras sugeridas:
 
-[AWS](https://docs.aws.amazon.com) | 
+[AWS](https://docs.aws.amazon.com) |
 [Serverless](https://serverless.com/framework/docs/providers/aws/) |
 [Bash script](https://www.devmedia.com.br/introducao-ao-shell-script-no-linux/25778) |
 [API Telegram](https://core.telegram.org/bots/api) |

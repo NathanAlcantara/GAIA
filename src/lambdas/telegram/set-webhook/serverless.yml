@@ -5,11 +5,11 @@ provider:
   runtime: nodejs10.x
   apiGateway:
     restApiId:
-      Fn::ImportValue: TelegramApiGateway-restApiId-${opt:stage}
+      Fn::ImportValue: GAIApiGateway-restApiId-${opt:stage}
     restApiRootResourceId:
-      Fn::ImportValue: TelegramApiGateway-rootResourceId-${opt:stage}
+      Fn::ImportValue: GAIApiGateway-rootResourceId-${opt:stage}
     restApiResources:
-      telegram: { 'Fn::ImportValue': 'TelegramApiGateway-pathTelegram-${opt:stage}' }
+      telegram: { 'Fn::ImportValue': 'GAIApiGateway-pathTelegram-${opt:stage}' }
 
 functions:
   setWebhook:
@@ -17,9 +17,9 @@ functions:
     description: Function to set the URL for webhook of a telegram bot
     handler: handler.setWebhook
     layers:
-      - ${cf:node-layer-${opt:stage}.NodeLayer}
+      - ${cf:${tenant}-node-layer-${opt:stage}.NodeLayer}
     events:
       - http:
-          path: /telegram/${tenant}
+          path: /telegram
           method: get
           cors: true

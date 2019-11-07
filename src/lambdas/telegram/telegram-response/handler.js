@@ -11,15 +11,15 @@ module.exports.send = async (event, context, callback) => {
 
   let command, bodyToSend;
   const { chatId: chat_id, messageType } = data;
-  const { message, fileId } = data;
+  const { text, fileId } = data;
 
   if (chat_id && messageType) {
     console.log(`Enviando uma mesagem do tipo: ${messageType}`);
     switch (messageType) {
       case "text":
         command = "sendMessage";
-        bodyToSend = { text: message };
-        console.log(`Enviando texto: ${message}`);
+        bodyToSend = { text };
+        console.log(`Enviando texto: ${text}`);
         break;
       case "photo":
         command = "sendPhoto";
@@ -40,7 +40,7 @@ module.exports.send = async (event, context, callback) => {
         return generateError(callback, "MessageType not found");
     }
 
-    if (message || fileId) {
+    if (text || fileId) {
       executeMethodBot(command, { ...{ chat_id }, ...bodyToSend });
     } else {
       return generateError(callback, "Body to telegram is invalid");

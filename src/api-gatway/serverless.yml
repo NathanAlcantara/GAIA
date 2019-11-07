@@ -6,34 +6,34 @@ provider:
 
 resources:
   Resources:
-    TelegramApiGW:
+    GAIApi:
       Type: AWS::ApiGateway::RestApi
       Properties:
-        Name: TelegramApiGW
-    TelegramApiGWPathTelegram:
+        Name: GAIApi
+    GAIApiPathTelegram:
       Type: AWS::ApiGateway::Resource
       Properties:
-        RestApiId: { Ref: "TelegramApiGW" }
-        ParentId: { Fn::GetAtt: "TelegramApiGW.RootResourceId" }
+        RestApiId: { Ref: "GAIApi" }
+        ParentId: { Fn::GetAtt: "GAIApi.RootResourceId" }
         PathPart: telegram
 
   Outputs:
     apiGatewayRestApiId:
       Value:
-        Ref: TelegramApiGW
+        Ref: GAIApi
       Export:
-        Name: TelegramApiGateway-restApiId-${opt:stage}
+        Name: GAIApiGateway-restApiId-${opt:stage}
 
     apiGatewayRestApiRootResourceId:
       Value:
         Fn::GetAtt:
-          - TelegramApiGW
+          - GAIApi
           - RootResourceId
       Export:
-        Name: TelegramApiGateway-rootResourceId-${opt:stage}
+        Name: GAIApiGateway-rootResourceId-${opt:stage}
 
     apiGatewayRestApiPathTelegram:
       Value:
-        Ref: TelegramApiGWPathTelegram
+        Ref: GAIApiPathTelegram
       Export:
-        Name: TelegramApiGateway-pathTelegram-${opt:stage}
+        Name: GAIApiGateway-pathTelegram-${opt:stage}

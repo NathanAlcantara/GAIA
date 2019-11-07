@@ -2,7 +2,7 @@
   "SNS": "send-telegram-response",
   "Input": {
     "chatId": "string",
-    "message": "string (Required if messageType is 'text')",
+    "text": "string (Required if messageType is 'text')",
     "fileId": "string (Required if messageType is NOT 'text')",
     "messageType": "text | photo | audio | document"
   },

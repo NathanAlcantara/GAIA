@@ -10,7 +10,7 @@ module.exports.setWebhook = async (event, context, callback) => {
   const requestContext = event.requestContext;
   const telegramTokenId = TELEGRAM_TOKEN.split(":")[0];
 
-  const url = `https://${requestContext.domainName}/${requestContext.stage}/telegram/${TENANT}${telegramTokenId}`;
+  const url = `https://${requestContext.domainName}/${requestContext.stage}/telegram/${TENANT}/${telegramTokenId}`;
 
   console.log(`Setando webhook na url: ${url}}`);
 

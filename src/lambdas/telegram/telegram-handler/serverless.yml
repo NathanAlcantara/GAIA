@@ -6,11 +6,11 @@ provider:
   runtime: nodejs10.x
   apiGateway:
     restApiId:
-      Fn::ImportValue: TelegramApiGateway-restApiId-${opt:stage}
+      Fn::ImportValue: GAIApiGateway-restApiId-${opt:stage}
     restApiRootResourceId:
-      Fn::ImportValue: TelegramApiGateway-rootResourceId-${opt:stage}
+      Fn::ImportValue: GAIApiGateway-rootResourceId-${opt:stage}
     restApiResources:
-      telegram: { 'Fn::ImportValue': 'TelegramApiGateway-pathTelegram-${opt:stage}' }
+      telegram: { 'Fn::ImportValue': 'GAIApiGateway-pathTelegram-${opt:stage}' }
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -23,9 +23,9 @@ functions:
     description: Handles the message from telegram
     handler: handler.main
     layers:
-      - ${cf:node-layer-${opt:stage}.NodeLayer}
+      - ${cf:${tenant}-node-layer-${opt:stage}.NodeLayer}
     events:
       - http:
-          path: /telegram/${tenant}${telegramTokenId}
+          path: /telegram/${tenant}/${telegramTokenId}
           method: post
           cors: true

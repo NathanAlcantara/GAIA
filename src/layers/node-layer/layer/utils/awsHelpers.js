@@ -14,19 +14,14 @@ module.exports.extractMessageOfEventSns = event => {
 
 module.exports.publishSnsTopic = (
   chatId,
-  messageType,
-  message,
+  payload,
   snsName = "send-telegram-response"
 ) => {
   const sns = new aws.SNS({ region: AWS_REGION });
 
-  messageType = messageType.toLowerCase();
+  payload.messageType = payload.messageType.toLowerCase();
 
-  const body = JSON.stringify({
-    chatId,
-    messageType,
-    message
-  });
+  const body = JSON.stringify({ ...{ chatId }, ...payload });
 
   console.log(`Publicando mensagem: ${body} no sns: "${TENANT}-${snsName}"`);
 
