@@ -29,7 +29,7 @@
 
 - Após isso, podemos ver que no projeto temos uma pasta de scripts, onde existe um bash script chamado `deployAll.sh` onde será usado para criar nosso ambiente.
 
-2. Para isso, você precisa criar um arquivo chamado `enviroments.json` na raiz do projeto que vai conter as variavéis de ambiente:
+2. Para isso, você precisa criar um arquivo chamado `environments.json` na raiz do projeto que vai conter as variáveis de ambiente:
 
    - `TENANT`, o mesmo valor da aplicação criada no primeiro passo (o nome);
    - `AWS_ACCOUNT_ID`, o id da sua conta gerado por algum administrador do projeto;
@@ -48,16 +48,39 @@
 
    (a última linha deve conter o `END_FILE` por complicações com virgulas no final da linha que em um futuro não tão distante será corrigido. xD)
 
-   #### ATENÇÃO!! NÃO COMMITAR O ARQUIVO `ENVIROMENTS.JSON`!!
+   <strong>ATENÇÃO!! NÃO COMMITAR O ARQUIVO `ENVIRONMENTS.JSON`!!</strong>
 
-3. Sendo a primeira vez que o ambiente está sendo montado, deve-se criar o seu path no API Gatway e exporta-lo, basta seguir o padrão que hoje já existe. 
+3. Sendo a primeira vez que o ambiente está sendo montado, deve-se criar o seu path com o nome do seu tenant no API Gatway e exporta-lo (não esqueça de commitar ao criar), basta seguir o padrão que hoje já existe, por exemplo:
+
+    Para criar o path (subsituia `tenant` pelo nome do seu tenant):
+
+    ```
+    GAIApiPathTenant:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: { Ref: "GAIApi" }
+      ParentId: { Ref: "GAIApiPathTelegram" }
+      PathPart: tenant
+    ```
+
+    Para eportar ele:
+
+    ```
+    apiGatewayRestApiPathTenant:
+      Value:
+        Ref: GAIApiPathTenant
+      Export:
+        Name: GAIApiGateway-tenantPath
+    ```
 
 4. Por fim, basta rodar `npm run deployDev` que o bash será executado criando a estrutura serverless totalmente do seu ambiente na aws.
 
-- Um ponto de atenção:
-  <p>
-  Cada serviço criado é totalmente agnóstico, cada um tem seu meio único e isolado de realizar deploy, o comando acima é apenas para inicializar o ambiente, apartir dai, sempre que for fazer qualquer mudança atente-se de executar apenas o deploy daquele serviço, casos a parte como layers que são dependencias de todas as lambdas devem realizar o deploy de cada lambda dependente dela, ao criar um novo serviço lembre-se disso e de incluir ele no deploy principal ou no deploy de uma layer
-  <p>
+5. Agora, para configurar o seu bot com a aplicação basta fazer uma chamada get (seja por Postman, Curl ou até mesmo pelo navegador) para a url `https://63sa9mac33.execute-api.us-east-1.amazonaws.com/dev/telegram/tenant` (lembrando de mudar `tenant` pelo nome do seu tenant) e voilá, seu bot está pronto para responder aos comandos! <br>
+Tente `/start` e veja a mágica acontecendo! xD
+
+#### Sobre a aplicação:
+
+Cada serviço criado é totalmente agnóstico, cada um tem seu meio único e isolado de realizar deploy, o comando acima é apenas para inicializar o ambiente, a partir dai, sempre que for fazer qualquer mudança atente-se de executar apenas o deploy daquele serviço, casos a parte como layers que são dependências de todas as lambdas devem realizar o deploy de cada lambda dependente dela, ao criar um novo serviço lembre-se disso e de incluir ele no deploy principal ou no deploy de uma layer.
 
 PS: Para depurar utilizando o serverless dashboard, basta você adicionar no serviço que deseja depurar as seguintes informações:
 
