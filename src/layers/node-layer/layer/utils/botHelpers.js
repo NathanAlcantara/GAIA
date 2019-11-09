@@ -1,9 +1,9 @@
 "use strict";
 
 const request = require("request-promise-native");
-const enviroments = require("../enviroments.json");
+const environment = require("../environment.json");
 
-const { TELEGRAM_TOKEN } = enviroments;
+const { TELEGRAM_TOKEN } = environment;
 
 module.exports.TELEGRAM_TOKEN = TELEGRAM_TOKEN;
 
