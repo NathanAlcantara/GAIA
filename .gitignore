@@ -10,7 +10,7 @@ target
 # others
 *.log
 *-lock.json
-enviroments.json
+environment.json
 
 #arquivos do mac :(
 .DS_Store

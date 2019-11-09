@@ -1,10 +1,10 @@
 "use strict";
 
 const aws = require("aws-sdk");
-const enviroments = require("../enviroments.json");
+const environment = require("../environment.json");
 
 const { AWS_REGION } = process.env;
-const { AWS_ACCOUNT_ID, TENANT } = enviroments;
+const { AWS_ACCOUNT_ID, TENANT } = environment;
 
 module.exports.TENANT = TENANT.toLowerCase();
 

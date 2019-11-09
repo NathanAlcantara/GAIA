@@ -8,10 +8,10 @@ if [ -z $1 ]; then
     env="dev"
 fi
 
-cp ../../../../enviroments.json enviroments.json
+cp ../../../../environment.json environment.json
 
-TELEGRAM_TOKEN=$(sed -n 's/.*"TELEGRAM_TOKEN": "\(.*\)",/\1/p' enviroments.json)
-TENANT=$(sed -n 's/.*"TENANT": "\(.*\)",/\1/p' enviroments.json | tr '[:upper:]' '[:lower:]')
+TELEGRAM_TOKEN=$(sed -n 's/.*"TELEGRAM_TOKEN": "\(.*\)",/\1/p' environment.json)
+TENANT=$(sed -n 's/.*"TENANT": "\(.*\)",/\1/p' environment.json | tr '[:upper:]' '[:lower:]')
 
 IFS=':' # hyphen (-) is set as delimiter
 read -ra SPLIT_TOKEN <<< "$TELEGRAM_TOKEN" # telegramToken is read into an array as tokens separated by IFS
@@ -24,7 +24,7 @@ serverless deploy --stage $env -v -r us-east-1;
 sed -i "s/${SPLIT_TOKEN[0]}/\${telegramTokenId}/" serverless.yml;
 sed -i "s/$TENANT/\${tenant}/" serverless.yml;
 
-rm enviroments.json
+rm environment.json
 
 echo -e "\n"
 echo "Deploy Finish"

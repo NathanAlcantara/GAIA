@@ -35,7 +35,7 @@
    - `AWS_ACCOUNT_ID`, o id da sua conta gerado por algum administrador do projeto;
    - `TELEGRAM_TOKEN`, o token do bot criado;
 
-   O arquivo deve seguir essa lógica (substituindo os placeholders por seus repectivos valores):
+   O arquivo deve seguir essa lógica (substituindo os placeholders por seus respectivos valores):
 
    ```
    {
@@ -50,9 +50,9 @@
 
    <strong>ATENÇÃO!! NÃO COMMITAR O ARQUIVO `ENVIRONMENTS.JSON`!!</strong>
 
-3. Sendo a primeira vez que o ambiente está sendo montado, deve-se criar o seu path com o nome do seu tenant no API Gatway e exporta-lo (não esqueça de commitar ao criar), basta seguir o padrão que hoje já existe, por exemplo:
+3. Sendo a primeira vez que o ambiente está sendo montado, deve-se criar o seu path com o nome do seu tenant no API Gateway e exporta-lo (não esqueça de commitar ao criar), basta seguir o padrão que hoje já existe, por exemplo:
 
-    Para criar o path (subsituia `tenant` pelo nome do seu tenant):
+    Para criar o path (substitua `tenant` pelo nome do seu tenant):
 
     ```
     GAIApiPathTenant:
@@ -63,7 +63,7 @@
       PathPart: tenant
     ```
 
-    Para eportar ele:
+    Para exportar ele:
 
     ```
     apiGatewayRestApiPathTenant:
@@ -89,9 +89,9 @@ PS: Para depurar utilizando o serverless dashboard, basta você adicionar no ser
 
 Aqui vai um [link](https://serverless.com/framework/docs/dashboard#enabling-the-dashboard-on-existing-serverless-framework-services) para ajudar a realizar a conexão;
 
-PSS: Cada serviço é constituito de no minimo 2 arquivos, o `serverless.yml` que é onde é declarado o serviço e o `deploy.sh` que é o script de deploy do mesmo onde é recebido o nome do enviroment que irá ser deployado (por padrão usamos `dev`), para lambdas inclui-se mais um arquivo obrigatório que seria o arquivo contento a função que será executada (`handler.py` ou `handler.js`).
+PSS: Cada serviço é constituído de no minimo 2 arquivos, o `serverless.yml` que é onde é declarado o serviço e o `deploy.sh` que é o script de deploy do mesmo onde é recebido o nome do environment que irá ser deployado (por padrão usamos `dev`), para lambdas inclui-se mais um arquivo obrigatório que seria o arquivo contento a função que será executada (`handler.py` ou `handler.js`).
 
-PSSS: O serviço de API Gatway é único para todos os tenants, inclusive com a produção, o que diferencia é o endpoint de cada um onde tem a informação do tenant no mesmo, e por isso ele não precisa ser deployado sempre, apenas quando houver alguma alteração/adição nele.
+PSSS: O serviço de API Gateway é único para todos os tenants, inclusive com a produção, o que diferencia é o endpoint de cada um onde tem a informação do tenant no mesmo, e por isso ele não precisa ser deployado sempre, apenas quando houver alguma alteração/adição nele.
 
 PSSSS: Temos uma pasta chamada `docs` onde lá fica definido os contratos de todas as nossas lambdas, caso venha a criar uma nova por favor adicionar o arquivo que representa o contrato dela respeitando o padrão:
 
@@ -112,8 +112,8 @@ PSSSS: Temos uma pasta chamada `docs` onde lá fica definido os contratos de tod
 - Identificar palavras e verbos suspeitos
 - Pesquisar ruas por código e nome (e demais infos do guia de ruas)
 - Pesquisar objetos no acervo
-- Check-List (por exemplo, se sao 8 numeros, então pode ser um CEP...)
-- Indentificar metadados (ex os nomes dos autores naqueles aquivos de áudio ou então as propriedades de um arquivo PDF)
+- Check-List (por exemplo, se sao 8 números, então pode ser um CEP...)
+- Identificar metadados (ex os nomes dos autores naqueles aquivos de áudio ou então as propriedades de um arquivo PDF)
 
 ## Leituras sugeridas:
 
@@ -124,9 +124,9 @@ PSSSS: Temos uma pasta chamada `docs` onde lá fica definido os contratos de tod
 [Python telegram Bot](https://python-telegram-bot.org) |
 [Making a telegram bot](https://www.sohamkamani.com/blog/2016/09/21/making-a-telegram-bot) |
 [Distribute Messages effectively](epsagon.com/blog/distribute-messages-effectively-in-serverless-applications/) |
-[Spliting your serverless framework api](https://www.gorillastack.com/news/splitting-your-serverless-framework-api-on-aws/) |
+[Splitting your serverless framework api](https://www.gorillastack.com/news/splitting-your-serverless-framework-api-on-aws/) |
 [10 passos para se criar um bot no telegram](https://medium.com/tht-things-hackers-team/10-passos-para-se-criar-um-bot-no-telegram-3c1848e404c4) |
-[Building a chabot using telegram and python](https://www.codementor.io/garethdwyer/building-a-chatbot-using-telegram-and-python-part-2-sqlite-databse-backend-m7o96jger)
+[Building a chatbot using telegram and python](https://www.codementor.io/garethdwyer/building-a-chatbot-using-telegram-and-python-part-2-sqlite-databse-backend-m7o96jger)
 
 ## Exemplos:
 

@@ -8,9 +8,9 @@ if [ -z $1 ]; then
     env="dev"
 fi
 
-cp ../../../enviroments.json enviroments.json
+cp ../../../environment.json environment.json
 
-TENANT=$(sed -n 's/.*"TENANT": "\(.*\)",/\1/p' enviroments.json | tr '[:upper:]' '[:lower:]')
+TENANT=$(sed -n 's/.*"TENANT": "\(.*\)",/\1/p' environment.json | tr '[:upper:]' '[:lower:]')
 
 sed -i "s/\${tenant}/$TENANT/" serverless.yml;
 
@@ -18,7 +18,7 @@ serverless deploy --stage $env -v -r us-east-1;
 
 sed -i "s/$TENANT/\${tenant}/" serverless.yml;
 
-rm enviroments.json
+rm environment.json
 
 echo -e "\n"
 echo "Deploy Finish"
