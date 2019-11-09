@@ -50,7 +50,7 @@
 
    <strong>ATENÇÃO!! NÃO COMMITAR O ARQUIVO `ENVIRONMENTS.JSON`!!</strong>
 
-3. Sendo a primeira vez que o ambiente está sendo montado, deve-se criar o seu path com o nome do seu tenant no API Gateway e exporta-lo (não esqueça de commitar ao criar), basta seguir o padrão que hoje já existe, por exemplo:
+3. Sendo a primeira vez que o ambiente está sendo montado, deve-se criar o seu path com o nome do seu tenant no API Gateway e exporta-lo (não esqueça de commitar direto na branch principal logo ao criar para todos terem acesso), basta seguir o padrão que hoje já existe, por exemplo:
 
     Para criar o path (substitua `tenant` pelo nome do seu tenant):
 
