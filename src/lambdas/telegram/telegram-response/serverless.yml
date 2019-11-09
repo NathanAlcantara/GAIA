@@ -1,4 +1,4 @@
-service: s${tenant}-end-bot
+service: ${tenant}-send-bot
 
 provider:
   name: aws
@@ -10,6 +10,6 @@ functions:
     description: Sends a message/response to telegram
     handler: handler.send
     layers:
-      - ${cf:${tenant}-node-layer-${opt:stage}.NodeLayer}
+      - ${cf:${tenant}-node-layer-${opt:stage}.nodeLayer}
     events:
       - sns: ${tenant}-send-telegram-response

@@ -15,8 +15,6 @@ layers:
     
 resources:
   Outputs:
-    NodeLayer:
+    nodeLayer:
         Value:
           Ref: NodeLambdaLayer
-        Export:
-          Name: NodeLambdaLayer

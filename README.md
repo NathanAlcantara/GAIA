@@ -50,7 +50,9 @@
 
    #### ATENÇÃO!! NÃO COMMITAR O ARQUIVO `ENVIROMENTS.JSON`!!
 
-3. Por fim, basta rodar `npm run deployDev` que o bash será executado criando a estrutura serverless totalmente do seu ambiente na aws.
+3. Sendo a primeira vez que o ambiente está sendo montado, deve-se criar o seu path no API Gatway e exporta-lo, basta seguir o padrão que hoje já existe. 
+
+4. Por fim, basta rodar `npm run deployDev` que o bash será executado criando a estrutura serverless totalmente do seu ambiente na aws.
 
 - Um ponto de atenção:
   <p>

@@ -16,6 +16,18 @@ resources:
         RestApiId: { Ref: "GAIApi" }
         ParentId: { Fn::GetAtt: "GAIApi.RootResourceId" }
         PathPart: telegram
+    GAIApiPathGaia:
+      Type: AWS::ApiGateway::Resource
+      Properties:
+        RestApiId: { Ref: "GAIApi" }
+        ParentId: { Ref: "GAIApiPathTelegram" }
+        PathPart: gaia
+    GAIApiPathNathan:
+      Type: AWS::ApiGateway::Resource
+      Properties:
+        RestApiId: { Ref: "GAIApi" }
+        ParentId: { Ref: "GAIApiPathTelegram" }
+        PathPart: nathan
 
   Outputs:
     apiGatewayRestApiId:
@@ -32,8 +44,14 @@ resources:
       Export:
         Name: GAIApiGateway-rootResourceId-${opt:stage}
 
-    apiGatewayRestApiPathTelegram:
+    apiGatewayRestApiPathGaia:
       Value:
-        Ref: GAIApiPathTelegram
+        Ref: GAIApiPathGaia
       Export:
-        Name: GAIApiGateway-pathTelegram-${opt:stage}
+        Name: GAIApiGateway-gaiaPath
+
+    apiGatewayRestApiPathNathan:
+      Value:
+        Ref: GAIApiPathNathan
+      Export:
+        Name: GAIApiGateway-nathanPath

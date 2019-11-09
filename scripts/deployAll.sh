@@ -7,8 +7,14 @@ if [ -z $1 ]; then
 fi
 
 echo "The magic begins!"
+echo -e "\n"
 
 cd src
+
+cd api-gatway
+bash deploy.sh $env
+
+cd ..
 
 cd layers
 

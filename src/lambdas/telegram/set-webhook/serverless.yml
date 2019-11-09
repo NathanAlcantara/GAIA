@@ -1,5 +1,8 @@
 service: ${tenant}-set-bot
 
+custom:
+  tenant: ${tenant}
+
 provider:
   name: aws
   runtime: nodejs10.x
@@ -9,7 +12,8 @@ provider:
     restApiRootResourceId:
       Fn::ImportValue: GAIApiGateway-rootResourceId-${opt:stage}
     restApiResources:
-      telegram: { 'Fn::ImportValue': 'GAIApiGateway-pathTelegram-${opt:stage}' }
+      ${tenant}:
+        Fn::ImportValue: GAIApiGateway-${tenant}Path
 
 functions:
   setWebhook:
@@ -17,9 +21,9 @@ functions:
     description: Function to set the URL for webhook of a telegram bot
     handler: handler.setWebhook
     layers:
-      - ${cf:${tenant}-node-layer-${opt:stage}.NodeLayer}
+      - ${cf:${tenant}-node-layer-${opt:stage}.nodeLayer}
     events:
       - http:
-          path: /telegram
+          path: ${tenant}
           method: get
           cors: true
