@@ -8,6 +8,7 @@ jspm_packages
 target
 
 # others
+.vscode
 *.log
 *-lock.json
 environment.json

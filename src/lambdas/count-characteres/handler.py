@@ -7,9 +7,9 @@ from utils import ERROR_RESPONSE, OK_RESPONSE, publishSnsTopic, bot, logger
 def count(event, context):
     if event.get("message") and event.get("chatId"):
         message = event.get("text")
-        characteres = message.get("characteres")
+        characters = message.get("characters")
 
-        Msg = str(characteres)
+        Msg = str(characters)
         lenMsg = len(Msg)
         lenMsgSemEspaco = len(Msg.replace(" ", ""))
 

@@ -54,7 +54,7 @@ Um dia nos vamos fazer um menu de ajuda dahora, mas por enquanto, só sei contar
         }
 
         if (text.isCommandExist("contar")) {
-          const characteres = text.getValueCommand("contar");
+          const characters = text.getValueCommand("contar");
           const { from, chat } = message;
 
           console.log(`O usuário ${from.first_name} solicitou uma contagem`);
@@ -64,7 +64,7 @@ Um dia nos vamos fazer um menu de ajuda dahora, mas por enquanto, só sei contar
           const text = "Contando...";
 
           publishSnsTopic(chatId, { text, messageType });
-          publishSnsTopic(chatId, { characteres }, "count-characteres");
+          publishSnsTopic(chatId, { characters }, "count-characters");
         }
       }
     }
@@ -74,6 +74,6 @@ Um dia nos vamos fazer um menu de ajuda dahora, mas por enquanto, só sei contar
 
   return generateError(
     callback,
-    "Não foi possível localizar o corpo da mesagem"
+    "Não foi possível localizar o corpo da mensagem"
   );
 };

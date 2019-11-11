@@ -1,5 +1,5 @@
 # /bin/bash
-echo "Deploying lambda that count characteres"
+echo "Deploying lambda that count characters"
 echo -e "\n"
 
 env=$1;

@@ -14,7 +14,7 @@ module.exports.send = async (event, context, callback) => {
   const { text, fileId } = data;
 
   if (chat_id && messageType) {
-    console.log(`Enviando uma mesagem do tipo: ${messageType}`);
+    console.log(`Enviando uma mensagem do tipo: ${messageType}`);
     switch (messageType) {
       case "text":
         command = "sendMessage";
