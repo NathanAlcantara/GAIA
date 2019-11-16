@@ -56,7 +56,8 @@ def count(event, context):
             MsgEnv = MsgEnv + \
                 "\nNesse caso pareceu ser interessante separar as minusculas, aqui: " + strLower
 
-        MESSAGE = json.dumps({'chatId': chatId, 'message': MsgEnv})
+        MESSAGE = json.dumps(
+            {'text': MsgEnv, 'messageType': 'text'})
         publishSnsTopic(chatId, MESSAGE)
 
         return OK_RESPONSE
