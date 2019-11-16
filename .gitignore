@@ -15,5 +15,5 @@ environment.json
 #arquivos do mac :(
 .DS_Store
 chaves
-enviroments.json
+environment.json
 teste.py

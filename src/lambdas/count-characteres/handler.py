@@ -1,13 +1,30 @@
 import json
 import sys
+import logging
 import unicodedata
-from utils import ERROR_RESPONSE, OK_RESPONSE, publishSnsTopic, bot, logger
+from awsHelper import OK_RESPONSE, ERROR_RESPONSE, publishSnsTopic
+
+logger = logging.getLogger()
+if logger.handlers:
+    for handler in logger.handlers:
+        logger.removeHandler(handler)
+logging.basicConfig(level=logging.INFO)
 
 
 def count(event, context):
-    if event.get("message") and event.get("chatId"):
-        message = event.get("text")
-        characteres = message.get("characteres")
+    logger.info('entrnou no contado o/')
+
+    message = json.loads(event['Records'][0]['Sns']['Message'])
+
+    logger.info(message)
+
+    characteres = message['characteres']
+    chatId = message['chatId']
+
+    logger.info(characteres)
+    logger.info(chatId)
+
+    if characteres and chatId:
 
         Msg = str(characteres)
         lenMsg = len(Msg)
@@ -39,10 +56,8 @@ def count(event, context):
             MsgEnv = MsgEnv + \
                 "\nNesse caso pareceu ser interessante separar as minusculas, aqui: " + strLower
 
-        chat_id = event.get("chatId")
-
-        MESSAGE = json.dumps({'chatId': chat_id, 'message': MsgEnv})
-        publishSnsTopic(chat_id, MESSAGE)
+        MESSAGE = json.dumps({'chatId': chatId, 'message': MsgEnv})
+        publishSnsTopic(chatId, MESSAGE)
 
         return OK_RESPONSE
 

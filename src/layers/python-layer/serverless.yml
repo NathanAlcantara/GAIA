@@ -1,0 +1,19 @@
+service: ${tenant}-python-layer
+
+provider:
+  name: aws
+  runtime: python3.7
+
+layers:
+  python:
+    path: layer
+    name: ${tenant}-python-layer
+    description: Utilitários para python
+    compatibleRuntimes:
+      - python3.7
+
+resources:
+  Outputs:
+    pythonLayer:
+      Value:
+        Ref: PythonLambdaLayer

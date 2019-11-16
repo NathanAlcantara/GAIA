@@ -61,10 +61,16 @@ Um dia nos vamos fazer um menu de ajuda dahora, mas por enquanto, só sei contar
 
           const chatId = chat.id;
 
-          const text = "Contando...";
+          const chatId2 = chatId.toString();
 
-          publishSnsTopic(chatId, { text, messageType });
-          publishSnsTopic(chatId, { characteres }, "count-characteres");
+          const text2 = "Contando...";
+
+          // publishSnsTopic(chatId, { text, messageType });
+          publishSnsTopic(
+            chatId2,
+            { characteres, messageType },
+            "count-characteres"
+          );
         }
       }
     }
