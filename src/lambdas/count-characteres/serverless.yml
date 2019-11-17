@@ -14,7 +14,7 @@ functions:
     name: ${tenant}-count-characteres
     description: Conta caracteres
     handler: handler.count
-    layer:
+    layers:
       - ${cf:${tenant}-python-layer-${opt:stage}.pythonLayer}
     events:
       - sns: ${tenant}-count-characteres

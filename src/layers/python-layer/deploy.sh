@@ -26,7 +26,15 @@ serverless deploy --stage $env -v -r us-east-1;
 
 sed -i "s/$TENANT/\${tenant}/" serverless.yml;
 
+cd layer/python/lib/python3.7/site-packages
+
+cp ../../../../../../../../environment.json environment.json
+
+cd ../../../../..
+
 rm layer/environment.json
+
+rm layer/python/lib/python3.7/site-packages/environment.json 
 
 rm environment.json
 
