@@ -1,4 +1,4 @@
-service: ${tenant}-count-characters
+service: ${tenant}-alphabet-number
 
 provider:
   name: aws
@@ -10,11 +10,11 @@ provider:
       Resource: "arn:aws:sns:*:*:*"
 
 functions:
-  countCharacters:
-    name: ${tenant}-count-characters
-    description: Conta caracteres
-    handler: handler.count
+  alphabetNumber:
+    name: ${tenant}-alphabet-number
+    description: Transforma letras em números
+    handler: handler.numeros
     layers:
       - ${cf:${tenant}-python-layer-${opt:stage}.pythonLayer}
     events:
-      - sns: ${tenant}-count-characters
+      - sns: ${tenant}-alphabet-number

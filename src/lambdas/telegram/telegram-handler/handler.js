@@ -61,10 +61,71 @@ Um dia nos vamos fazer um menu de ajuda dahora, mas por enquanto, só sei contar
 
           const chatId = chat.id;
 
-          const text = "Contando...";
+          const chatId2 = chatId.toString();
 
-          publishSnsTopic(chatId, { text, messageType });
-          publishSnsTopic(chatId, { characters }, "count-characters");
+          //const text2 = "Contando...";
+          // publishSnsTopic(chatId, { text, messageType });
+          publishSnsTopic(
+            chatId2,
+            { characteres, messageType },
+            "count-characteres"
+          );
+        }
+        if (text.isCommandExist("numeros")) {
+          const characteres = text.getValueCommand("numeros");
+          const { from, chat } = message;
+          console.log(
+            `O usuário ${from.first_name} solicitou uma conversao de letra para numeros`
+          );
+
+          const chatId = chat.id;
+
+          const chatId2 = chatId.toString();
+
+          //const text2 = "Contando...";
+          // publishSnsTopic(chatId, { text, messageType });
+          publishSnsTopic(
+            chatId2,
+            { characteres, messageType },
+            "alphabet-number"
+          );
+        }
+        if (text.isCommandExist("letras")) {
+          const characteres = text.getValueCommand("letras");
+          const { from, chat } = message;
+
+          console.log(
+            `O usuário ${from.first_name} solicitou uma conversao de numeros para letras`
+          );
+
+          const chatId = chat.id;
+
+          const chatId2 = chatId.toString();
+
+          //const text2 = "Contando...";
+          // publishSnsTopic(chatId, { text, messageType });
+          publishSnsTopic(
+            chatId2,
+            { characteres, messageType },
+            "number-alphabet"
+          );
+        }
+        if (text.isCommandExist("iniciais")) {
+          const characteres = text.getValueCommand("iniciais");
+          const { from, chat } = message;
+
+          console.log(
+            `O usuário ${from.first_name} solicitou uma extracao de iniciais e finais`
+          );
+
+          const chatId = chat.id;
+
+          const chatId2 = chatId.toString();
+          publishSnsTopic(
+            chatId2,
+            { characteres, messageType },
+            "get-initials"
+          );
         }
       }
     }
