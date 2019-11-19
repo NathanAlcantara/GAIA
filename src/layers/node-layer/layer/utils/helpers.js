@@ -2,7 +2,7 @@
 
 module.exports.generateSuccess = (
   callback,
-  payload = "Successfuly to send message",
+  payload = "Successfully to send message",
   code = 200
 ) => {
   const body = JSON.stringify(payload);

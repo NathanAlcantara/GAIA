@@ -31,7 +31,6 @@ def count(event, context):
 
         Msg = Msg.replace('\r', '').replace(
             '\n', '')  # removemos a quebra de linha por nada :(
-
         lenMsg = len(Msg)
         lenMsgSemEspaco = len(Msg.replace(" ", ""))
 
