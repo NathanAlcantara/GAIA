@@ -1,0 +1,10 @@
+{
+  "SNS": "alphabet-number",
+  "Input": {
+    "chatId": "string",
+    "message": {
+      "characteres": "string"
+    }
+  },
+  "Output": "Publica a mensagem de  conversão de Letras para Numeros no sns 'send-telegram-response'"
+}
