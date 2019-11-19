@@ -1,4 +1,4 @@
-service: guilherme-count-characteres
+service: ${tenant}-count-characteres
 
 provider:
   name: aws
@@ -11,10 +11,10 @@ provider:
 
 functions:
   countCharacteres:
-    name: guilherme-count-characteres
+    name: ${tenant}-count-characteres
     description: Conta caracteres
     handler: handler.count
     layers:
-      - ${cf:guilherme-python-layer-${opt:stage}.pythonLayer}
+      - ${cf:${tenant}-python-layer-${opt:stage}.pythonLayer}
     events:
-      - sns: guilherme-count-characteres
+      - sns: ${tenant}-count-characteres

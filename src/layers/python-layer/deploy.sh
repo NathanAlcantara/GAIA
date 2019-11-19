@@ -61,5 +61,5 @@ bash deploy.sh $env
 
 cd ..
 
-cd ge-initials
+cd get-initials
 bash deploy.sh $env
