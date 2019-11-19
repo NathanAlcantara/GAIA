@@ -20,3 +20,8 @@ cd layers
 
 cd node-layer
 bash deploy.sh $env
+
+cd ..
+
+cd python-layer
+bash deploy.sh $env

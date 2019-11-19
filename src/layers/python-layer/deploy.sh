@@ -48,3 +48,18 @@ cd lambdas
 
 cd count-characteres
 bash deploy.sh $env
+
+cd ..
+
+cd alphabet-number
+bash deploy.sh $env
+
+cd ..
+
+cd number-alphabet
+bash deploy.sh $env
+
+cd ..
+
+cd ge-initials
+bash deploy.sh $env
