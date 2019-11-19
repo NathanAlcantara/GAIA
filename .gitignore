@@ -8,6 +8,7 @@ jspm_packages
 target
 
 # others
+.vscode
 *.log
 *-lock.json
 environment.json
@@ -15,5 +16,5 @@ environment.json
 #arquivos do mac :(
 .DS_Store
 chaves
-environment.json
 teste.py
+

@@ -1,4 +1,4 @@
-service: ${tenant}-count-characteres
+service: ${tenant}-count-characters
 
 provider:
   name: aws
@@ -10,11 +10,11 @@ provider:
       Resource: "arn:aws:sns:*:*:*"
 
 functions:
-  countCharacteres:
-    name: ${tenant}-count-characteres
+  countCharacters:
+    name: ${tenant}-count-characters
     description: Conta caracteres
     handler: handler.count
     layers:
       - ${cf:${tenant}-python-layer-${opt:stage}.pythonLayer}
     events:
-      - sns: ${tenant}-count-characteres
+      - sns: ${tenant}-count-characters
