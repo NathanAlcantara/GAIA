@@ -3,5 +3,9 @@
   "description": "Telegram Bot GAIA",
   "scripts": {
     "deployDev": "bash scripts/deployAll.sh dev"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "prettier": "^1.19.1"
   }
 }

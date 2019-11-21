@@ -23,13 +23,11 @@
 
 (Leia tudo antes de executar, por favor, obrigado x3)
 
-1. Primeiramente, na sua conta serverless você deve criar uma aplicação com o seu nome, ex: `david`;
+1. Primeiramente você precisa [configurar](https://serverless.com/framework/docs/providers/aws/cli-reference/config-credentials) a sua conta AWS no serverless.
 
-- Caso deseje usar o serverless dashboard para depuração você precisa [configurar](https://serverless.com/framework/docs/providers/aws/cli-reference/config-credentials/) a sua conta AWS
+   - Caso deseje usar o serverless dashboard para depuração você precisa adicionar parâmetros nos arquivos `serverless.yml` que deseja depurar, segue [exemplo](https://serverless.com/framework/docs/dashboard/#enabling-the-dashboard-on-existing-serverless-framework-services)
 
-- Após isso, podemos ver que no projeto temos uma pasta de scripts, onde existe um bash script chamado `deployAll.sh` onde será usado para criar nosso ambiente.
-
-2. Para isso, você precisa criar um arquivo chamado `environments.json` na raiz do projeto que vai conter as variáveis de ambiente:
+2. Para usar suas variáveis de ambiente, você precisa criar um arquivo chamado `environment.json` na raiz do projeto que vai conter as variáveis de ambiente:
 
    - `TENANT`, o mesmo valor da aplicação criada no primeiro passo (o nome);
    - `AWS_ACCOUNT_ID`, o id da sua conta gerado por algum administrador do projeto;
@@ -48,35 +46,35 @@
 
    (a última linha deve conter o `END_FILE` por complicações com virgulas no final da linha que em um futuro não tão distante será corrigido. xD)
 
-   <strong>ATENÇÃO!! NÃO COMMITAR O ARQUIVO `ENVIRONMENTS.JSON`!!</strong>
+   <strong>ATENÇÃO!! NÃO COMMITAR O ARQUIVO `ENVIRONMENT.JSON`!!</strong>
 
 3. Sendo a primeira vez que o ambiente está sendo montado, deve-se criar o seu path com o nome do seu tenant no API Gateway e exporta-lo (não esqueça de commitar direto na branch principal logo ao criar para todos terem acesso), basta seguir o padrão que hoje já existe, por exemplo:
 
-    Para criar o path (substitua `tenant` pelo nome do seu tenant):
+   Para criar o path (substitua `tenant` pelo nome do seu tenant):
 
-    ```
-    GAIApiPathTenant:
-    Type: AWS::ApiGateway::Resource
-    Properties:
-      RestApiId: { Ref: "GAIApi" }
-      ParentId: { Ref: "GAIApiPathTelegram" }
-      PathPart: tenant
-    ```
+   ```
+   GAIApiPathTenant:
+   Type: AWS::ApiGateway::Resource
+   Properties:
+     RestApiId: { Ref: "GAIApi" }
+     ParentId: { Ref: "GAIApiPathTelegram" }
+     PathPart: tenant
+   ```
 
-    Para exportar ele:
+   Para exportar ele:
 
-    ```
-    apiGatewayRestApiPathTenant:
-      Value:
-        Ref: GAIApiPathTenant
-      Export:
-        Name: GAIApiGateway-tenantPath
-    ```
+   ```
+   apiGatewayRestApiPathTenant:
+     Value:
+       Ref: GAIApiPathTenant
+     Export:
+       Name: GAIApiGateway-tenantPath
+   ```
 
 4. Por fim, basta rodar `npm run deployDev` que o bash será executado criando a estrutura serverless totalmente do seu ambiente na aws.
 
 5. Agora, para configurar o seu bot com a aplicação basta fazer uma chamada get (seja por Postman, Curl ou até mesmo pelo navegador) para a url `https://63sa9mac33.execute-api.us-east-1.amazonaws.com/dev/telegram/tenant` (lembrando de mudar `tenant` pelo nome do seu tenant) e voilá, seu bot está pronto para responder aos comandos! <br>
-Tente `/start` e veja a mágica acontecendo! xD
+   Tente `/start` e veja a mágica acontecendo! xD
 
 #### Sobre a aplicação:
 

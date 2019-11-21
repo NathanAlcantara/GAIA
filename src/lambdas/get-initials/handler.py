@@ -19,15 +19,15 @@ def iniciais(event, context):
 
     logger.info(message)
 
-    characteres = message['characteres']
+    characters = message['characters']
     chatId = message['chatId']
 
-    logger.info(characteres)
+    logger.info(characters)
     logger.info(chatId)
 
-    if characteres and chatId:
+    if characters and chatId:
 
-        Msg = str(characteres)
+        Msg = str(characters)
 
         LisMsg = str(Msg).splitlines()  # cria um array com as linhas
         FinalSemPonto = InicialSemPonto = Final = Inicial = ''

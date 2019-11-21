@@ -3,8 +3,8 @@
   "Input": {
     "chatId": "string",
     "message": {
-      "characteres": "string"
+      "characters": "string"
     }
   },
-  "Output": "Publica a mensagem de extracao das letras iniciais e finais de um texto/linha na sns 'send-telegram-response'"
+  "Output": "Publica a mensagem de extração das letras iniciais e finais de um texto/linha na sns 'send-telegram-response'"
 }
