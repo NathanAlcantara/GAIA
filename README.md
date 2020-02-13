@@ -4,6 +4,31 @@
 
 ### Telegram Bot
 
+#### Sobre a aplicação:
+
+Cada serviço criado é totalmente agnóstico, cada um tem seu meio único e isolado de realizar deploy, o comando acima é apenas para inicializar o ambiente, a partir dai, sempre que for fazer qualquer mudança atente-se de executar apenas o deploy daquele serviço, casos a parte como layers que são dependências de todas as lambdas devem realizar o deploy de cada lambda dependente dela, ao criar um novo serviço lembre-se disso e de incluir ele no deploy principal ou no deploy de uma layer.
+
+PS: Para depurar utilizando o serverless dashboard, basta você adicionar no serviço que deseja depurar as seguintes informações:
+
+- org: é o seu username do serverless;
+- app: é a aplicação que pedimos para criar no primeiro passo;
+
+Aqui vai um [link](https://serverless.com/framework/docs/dashboard#enabling-the-dashboard-on-existing-serverless-framework-services) para ajudar a realizar a conexão;
+
+PSS: Cada serviço é constituído de no minimo 2 arquivos, o `serverless.yml` que é onde é declarado o serviço e o `deploy.sh` que é o script de deploy do mesmo onde é recebido o nome do environment que irá ser deployado (por padrão usamos `dev`), para lambdas inclui-se mais um arquivo obrigatório que seria o arquivo contento a função que será executada (`handler.py` ou `handler.js`).
+
+PSSS: O serviço de API Gateway é único para todos os tenants, inclusive com a produção, o que diferencia é o endpoint de cada um onde tem a informação do tenant no mesmo, e por isso ele não precisa ser deployado sempre, apenas quando houver alguma alteração/adição nele.
+
+PSSSS: Temos uma pasta chamada `docs` onde lá fica definido os contratos de todas as nossas lambdas, caso venha a criar uma nova por favor adicionar o arquivo que representa o contrato dela respeitando o padrão:
+
+```
+{
+  "SNS": "string", //SNS que a lambda fica inscrita
+  "Input": "Object | {}", //Objeto de entrada essencial para execução da lambda
+  "Output": "Description" //Breve descrição da saída da lambda (ex: publica em um sns, manda uma string direto para o telegram, salva um arquivo no s3, etc...)
+}
+```
+
 #### Pre-requisitos:
 
 1. [Node](https://nodejs.org/en/)
@@ -11,7 +36,10 @@
 3. Serverless, `npm i -g serverless`
 4. Credenciais da [AWS](https://aws.amazon.com/pt/) (AccountId e SecretKey)
 5. Token do Bot criado com o [BotFather](https://telegram.me/BotFather)
-6. Uma conta no [serverless](https://dashboard.serverless.com), para acessar os dashboards
+
+BONUS
+
+1. Uma conta no [serverless](https://dashboard.serverless.com), caso deseje acessar os dashboards
 
 #### Recomendados:
 
@@ -29,8 +57,8 @@
 
 2. Para usar suas variáveis de ambiente, você precisa criar um arquivo chamado `environment.json` na raiz do projeto que vai conter as variáveis de ambiente:
 
-   - `TENANT`, o mesmo valor da aplicação criada no primeiro passo (o nome);
-   - `AWS_ACCOUNT_ID`, o id da sua conta gerado por algum administrador do projeto;
+   - `TENANT`, o nome do seu tenant, normalmente seu primeiro nome;
+   - `AWS_ACCOUNT_ID`, o id da sua conta aws;
    - `TELEGRAM_TOKEN`, o token do bot criado;
 
    O arquivo deve seguir essa lógica (substituindo os placeholders por seus respectivos valores):
@@ -73,33 +101,9 @@
 
 4. Por fim, basta rodar `npm run deployDev` que o bash será executado criando a estrutura serverless totalmente do seu ambiente na aws.
 
-5. Agora, para configurar o seu bot com a aplicação basta fazer uma chamada get (seja por Postman, Curl ou até mesmo pelo navegador) para a url `https://63sa9mac33.execute-api.us-east-1.amazonaws.com/dev/telegram/tenant` (lembrando de mudar `tenant` pelo nome do seu tenant) e voilá, seu bot está pronto para responder aos comandos! <br>
-   Tente `/start` e veja a mágica acontecendo! xD
+5. Agora, para configurar o seu bot com a aplicação basta fazer uma chamada get (seja por Postman, Curl ou até mesmo pelo navegador) para a url `https://63sa9mac33.execute-api.us-east-1.amazonaws.com/dev/telegram/tenant` (lembrando de mudar `tenant` pelo nome do seu tenant) e voilá, seu bot está pronto para responder aos comandos!
 
-#### Sobre a aplicação:
-
-Cada serviço criado é totalmente agnóstico, cada um tem seu meio único e isolado de realizar deploy, o comando acima é apenas para inicializar o ambiente, a partir dai, sempre que for fazer qualquer mudança atente-se de executar apenas o deploy daquele serviço, casos a parte como layers que são dependências de todas as lambdas devem realizar o deploy de cada lambda dependente dela, ao criar um novo serviço lembre-se disso e de incluir ele no deploy principal ou no deploy de uma layer.
-
-PS: Para depurar utilizando o serverless dashboard, basta você adicionar no serviço que deseja depurar as seguintes informações:
-
-- org: é o seu username do serverless;
-- app: é a aplicação que pedimos para criar no primeiro passo;
-
-Aqui vai um [link](https://serverless.com/framework/docs/dashboard#enabling-the-dashboard-on-existing-serverless-framework-services) para ajudar a realizar a conexão;
-
-PSS: Cada serviço é constituído de no minimo 2 arquivos, o `serverless.yml` que é onde é declarado o serviço e o `deploy.sh` que é o script de deploy do mesmo onde é recebido o nome do environment que irá ser deployado (por padrão usamos `dev`), para lambdas inclui-se mais um arquivo obrigatório que seria o arquivo contento a função que será executada (`handler.py` ou `handler.js`).
-
-PSSS: O serviço de API Gateway é único para todos os tenants, inclusive com a produção, o que diferencia é o endpoint de cada um onde tem a informação do tenant no mesmo, e por isso ele não precisa ser deployado sempre, apenas quando houver alguma alteração/adição nele.
-
-PSSSS: Temos uma pasta chamada `docs` onde lá fica definido os contratos de todas as nossas lambdas, caso venha a criar uma nova por favor adicionar o arquivo que representa o contrato dela respeitando o padrão:
-
-```
-{
-  "SNS": "string", //SNS que a lambda fica inscrita
-  "Input": "Object | {}", //Objeto de entrada essencial para execução da lambda
-  "Output": "Description" //Breve descrição da saída da lambda (ex: publica em um sns, manda uma string direto para o telegram, salva um arquivo no s3, etc...)
-}
-```
+6. Tente `/start` e veja a mágica acontecendo! xD
 
 ## Escopo:
 
