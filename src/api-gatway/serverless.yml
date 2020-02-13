@@ -40,6 +40,12 @@ resources:
         RestApiId: { Ref: "GAIApi" }
         ParentId: { Ref: "GAIApiPathTelegram" }
         PathPart: diogo
+    GAIApiPathGeovani:
+      Type: AWS::ApiGateway::Resource
+      Properties:
+        RestApiId: { Ref: "GAIApi" }
+        ParentId: { Ref: "GAIApiPathTelegram" }
+        PathPart: geovani
 
   Outputs:
     apiGatewayRestApiId:
@@ -79,3 +85,9 @@ resources:
         Ref: GAIApiPathDiogo
       Export:
         Name: GAIApiGateway-diogoPath
+
+    apiGatewayRestApiPathGeovani:
+      Value:
+        Ref: GAIApiPathGeovani
+      Export:
+        Name: GAIApiGateway-geovaniPath
