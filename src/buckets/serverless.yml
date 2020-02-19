@@ -1,0 +1,11 @@
+service: buckets
+
+provider:
+  name: aws
+
+resources:
+  Resources:
+    ProvasBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: gaia-provas

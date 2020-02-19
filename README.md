@@ -101,7 +101,7 @@ BONUS
 
 4. Por fim, basta rodar `npm run deployDev` que o bash será executado criando a estrutura serverless totalmente do seu ambiente na aws.
 
-5. Agora, para configurar o seu bot com a aplicação basta fazer uma chamada get (seja por Postman, Curl ou até mesmo pelo navegador) para a url `https://63sa9mac33.execute-api.us-east-1.amazonaws.com/dev/telegram/tenant` (lembrando de mudar `tenant` pelo nome do seu tenant) e voilá, seu bot está pronto para responder aos comandos!
+5. Agora, para configurar o seu bot com a aplicação basta fazer uma chamada get (seja por Postman, Curl ou até mesmo pelo navegador) para a url `https://api.tribodosanjos87.com.br/gaia/dev/telegram/tenant` (lembrando de mudar `tenant` pelo nome do seu tenant) e voilá, seu bot está pronto para responder aos comandos!
 
 6. Tente `/start` e veja a mágica acontecendo! xD
 
