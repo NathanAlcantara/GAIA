@@ -25,3 +25,6 @@ cd ..
 
 cd python-layer
 bash deploy.sh $env
+
+echo -e "\n"
+echo "All scripts finished"
