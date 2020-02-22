@@ -16,6 +16,11 @@ bash deploy.sh $env
 
 cd ..
 
+cd buckets
+bash deploy.sh $env
+
+cd ..
+
 cd layers
 
 cd node-layer
