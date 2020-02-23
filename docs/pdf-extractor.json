@@ -1,0 +1,16 @@
+{
+  "SNS": "alphabet-number",
+  "Input": {
+    "Records" : [{ 
+      "s3": {
+        "bucket" : {
+          "name": "string"
+        },
+        "object": {
+          "key": "string"
+        }
+      }
+    }]
+  },
+  "Output": "Encaminha o pdf para o textract"
+}

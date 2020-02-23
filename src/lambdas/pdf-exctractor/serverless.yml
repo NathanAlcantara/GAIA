@@ -1,0 +1,25 @@
+service: ${tenant}-pdf-extractor
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  memorySize: 256
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+      Resource: "arn:aws:s3:::gaia-provas/*"
+
+functions:
+  pdfextract:
+    handler: handler.main
+    environment:
+      bucket: gaia-provas
+    events:
+      - s3:
+          bucket: gaia-provas
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: uploads/
+            - suffix: .pdf
+          existing: true
