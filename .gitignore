@@ -10,7 +10,6 @@ target
 # others
 .vscode
 *.log
-*-lock.json
 environment.json
 
 #arquivos do mac :(

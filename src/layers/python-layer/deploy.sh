@@ -42,6 +42,11 @@ cd ../..
 
 cd lambdas
 
+cd help
+bash deploy.sh $env
+
+cd ..
+
 cd count-characters
 bash deploy.sh $env
 

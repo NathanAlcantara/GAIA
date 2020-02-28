@@ -1,0 +1,20 @@
+service: ${tenant}-help
+
+provider:
+  name: aws
+  runtime: python3.7
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - sns:Publish
+      Resource: "arn:aws:sns:*:*:*"
+
+functions:
+  help:
+    name: ${tenant}-help
+    description: Comando /ajuda com ajuda dinâmica
+    handler: handler.ajuda
+    layers:
+      - ${cf:${tenant}-python-layer-${opt:stage}.pythonLayer}
+    events:
+      - sns: ${tenant}-help

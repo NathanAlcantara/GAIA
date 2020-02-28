@@ -42,15 +42,14 @@ Duvidas? Por favor, utilize o comando /ajuda, nele voce encontra um guia rápido
         }
 
         if (text.isCommandExist("ajuda")) {
+          const characters = text.getValueCommand("ajuda");
           const { from, chat } = message;
-          console.log(`O usuário ${from.first_name} pediu por ajuda`);
+
+          console.log(`O usuário ${from.first_name} solicitou ajuda`);
 
           const chatId = chat.id;
 
-          const text = `Nothing to do here, move along...
-Um dia nos vamos fazer um menu de ajuda dahora, mas por enquanto, só sei contar, use /contar e veja por si mesmo`;
-
-          publishSnsTopic(chatId, { text, messageType });
+          publishSnsTopic(chatId, { characters, messageType }, "help");
         }
 
         if (text.isCommandExist("contar")) {

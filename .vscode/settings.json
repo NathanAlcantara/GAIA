@@ -15,5 +15,8 @@
         "statusBarItem.hoverBackground": "#094b6e",
         "statusBar.foreground": "#e7e7e7",
         "tab.activeBorder": "#094b6e"
-    }
+    },
+    "cSpell.words": [
+        "Moser"
+    ]
 }
