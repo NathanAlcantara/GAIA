@@ -16,6 +16,11 @@ bash deploy.sh $env
 
 cd ..
 
+cd buckets
+bash deploy.sh $env
+
+cd ..
+
 cd layers
 
 cd node-layer
@@ -25,3 +30,6 @@ cd ..
 
 cd python-layer
 bash deploy.sh $env
+
+echo -e "\n"
+echo "All scripts finished"

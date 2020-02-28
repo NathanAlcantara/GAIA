@@ -2,7 +2,6 @@ service: telegram-api
 
 provider:
   name: aws
-  runtime: nodejs10.x
 
 resources:
   Resources:
@@ -34,6 +33,18 @@ resources:
         RestApiId: { Ref: "GAIApi" }
         ParentId: { Ref: "GAIApiPathTelegram" }
         PathPart: guilherme
+    GAIApiPathDiogo:
+      Type: AWS::ApiGateway::Resource
+      Properties:
+        RestApiId: { Ref: "GAIApi" }
+        ParentId: { Ref: "GAIApiPathTelegram" }
+        PathPart: diogo
+    GAIApiPathGeovani:
+      Type: AWS::ApiGateway::Resource
+      Properties:
+        RestApiId: { Ref: "GAIApi" }
+        ParentId: { Ref: "GAIApiPathTelegram" }
+        PathPart: geovani
 
   Outputs:
     apiGatewayRestApiId:
@@ -67,3 +78,15 @@ resources:
         Ref: GAIApiPathGuilherme
       Export:
         Name: GAIApiGateway-guilhermePath
+
+    apiGatewayRestApiPathDiogo:
+      Value:
+        Ref: GAIApiPathDiogo
+      Export:
+        Name: GAIApiGateway-diogoPath
+
+    apiGatewayRestApiPathGeovani:
+      Value:
+        Ref: GAIApiPathGeovani
+      Export:
+        Name: GAIApiGateway-geovaniPath

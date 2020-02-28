@@ -19,15 +19,15 @@ def ajuda(event, context):
 
     logger.info(message)
 
-    characteres = message['characteres']
+    characters = message['characters']
     chatId = message['chatId']
 
-    logger.info(characteres)
+    logger.info(characters)
     logger.info(chatId)
 
     if chatId:
 
-        entrada = str(characteres)
+        entrada = str(characters)
 
         with open('commands.json', 'r') as arquivo:
             data = arquivo.read()

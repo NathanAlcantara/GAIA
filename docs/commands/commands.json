@@ -3,36 +3,36 @@
     "curta": "Insira uma frase/texto após esse comando e irei contar os caracteres e tudo mais que possa lhe interessar.",
     "longa": "Muito bem, a função /contar. Com essa opção você irá obter uma série de informações do texto inserido, como número de caracteres, maiúsculas, minúsculas e afins. Se voce informa um texto de múltiplas linhas eu lhe retornarei um arquivo .csv para sua melhor análise.",
     "autor": "Guilherme Moser",
-    "tecnica": "Python, e Buckets AWS"
+    "técnica": "Python, e Buckets AWS"
   },
   "iniciais": {
     "curta": "Insira um texto/frase após isso e irei lhe dar as iniciais.",
     "longa": "Aqui vamos extrair as iniciais de um texto ou de uma frase, somente isso mesmo. Irei lhe mandar uma versão contando a pontuação e outra não.",
     "autor": "Guilherme Moser",
-    "tecnica": "Python"
+    "técnica": "Python"
   },
   "numeros": {
     "curta": "Convertemos letras em Números. Seus espaços vão virar traços (-)",
     "longa": "Aqui a coisa fica legal. Essa é uma função que converte letras em números, insira seu texto e eu o converterei. Ah seus espaços serão trocados por - (um traço)",
     "autor": "Guilherme Moser",
-    "tecnica": "Python"
+    "técnica": "Python"
   },
   "letras": {
     "curta": "Convertemos números em letras (separado por espaços). Se quiser use um traço - que eu vou mantê-lo.",
     "longa": "Essa função é a tradicional conversão de texto em letras, separe-os por espaço, e por favor, não use maiores que o alfabeto caso contrário eu ignoro :) e se quiser, use traços (-) pra separar possíveis palavras",
     "autor": "Guilherme Moser",
-    "tecnica": "Python"
+    "técnica": "Python"
   },
   "ajuda": {
     "curta": "Ei, já estamos nesse comando, mas não exite em chamá-lo, viu? ",
     "longa": "Oi. Voce quer ajuda em como pedir ajuda? Mano, seguinte, voce digita o comando /ajuda ou então o /ajuda seguido de algum outro comando, por exemplo  - /ajuda contar - . Qualquer coisa é só me chamar :)",
     "autor": "Guilherme Moser",
-    "tecnica": "Python"
+    "técnica": "Python"
   },
   "start": {
-    "curta": " Esse comando me inicia, você realmente não precisa mais usar ele ;)",
+    "curta": "Esse comando me inicia, você realmente não precisa mais usar ele ;)",
     "longa": "Apenas um Oi para iniciarmos nossas conversas... mas se quiser, posso dizer Oi a qlqr hora.",
     "autor": "Nathan Alcantara",
-    "tecnica": "JavaScript"
+    "técnica": "JavaScript"
   }
 }

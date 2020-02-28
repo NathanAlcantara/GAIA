@@ -12,7 +12,7 @@ provider:
 functions:
   help:
     name: ${tenant}-help
-    description: Comando /ajuda com ajuda dinamica
+    description: Comando /ajuda com ajuda dinâmica
     handler: handler.ajuda
     layers:
       - ${cf:${tenant}-python-layer-${opt:stage}.pythonLayer}

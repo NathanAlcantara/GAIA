@@ -1,5 +1,5 @@
 # /bin/bash
-echo "Deploying lambda that  get help to the user"
+echo "Deploying lambda that get help to the user"
 echo -e "\n"
 
 env=$1;
