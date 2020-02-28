@@ -9,7 +9,6 @@ target
 
 # others
 *.log
-*-lock.json
 environment.json
 
 #arquivos do mac :(
