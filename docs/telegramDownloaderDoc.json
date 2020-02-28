@@ -9,7 +9,7 @@
         "bucket":"string",
         "?targetSns":"string"
     },
-    "?Output": {
+    "Output?": {
         "status":"int"
     }
   }
