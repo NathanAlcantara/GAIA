@@ -1,0 +1,15 @@
+{
+    "SNS": "telegram-downloader",
+    "Input": {
+        "chatId": "string",
+        "document": {
+            "fileId":"int",
+            "fileName":"string"
+        },
+        "bucket":"string",
+        "targetSns?":"string"
+    },
+    "Output?": {
+        "status":"int"
+    }
+  }
