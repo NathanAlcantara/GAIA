@@ -7,7 +7,7 @@
             "fileName":"string"
         },
         "bucket":"string",
-        "?targetSns":"string"
+        "targetSns?":"string"
     },
     "Output?": {
         "status":"int"
