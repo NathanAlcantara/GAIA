@@ -8,7 +8,6 @@ jspm_packages
 target
 
 # others
-.vscode
 *.log
 *-lock.json
 environment.json
@@ -18,3 +17,7 @@ environment.json
 chaves
 teste.py
 
+#IDE
+*.idea
+**/venv
+.vscode
