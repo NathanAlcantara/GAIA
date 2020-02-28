@@ -64,3 +64,9 @@ cd ..
 
 cd get-initials
 bash deploy.sh $env
+
+cd ..
+
+cd telegram
+cd telegram-downloader
+bash deploy.sh $env
