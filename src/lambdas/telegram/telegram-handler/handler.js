@@ -66,6 +66,7 @@ Duvidas? Por favor, utilize o comando /ajuda, nele voce encontra um guia rápido
             "count-characters"
           );
         }
+
         if (text.isCommandExist("numeros")) {
           const characters = text.getValueCommand("numeros");
           const { from, chat } = message;
@@ -81,6 +82,7 @@ Duvidas? Por favor, utilize o comando /ajuda, nele voce encontra um guia rápido
             "alphabet-number"
           );
         }
+
         if (text.isCommandExist("letras")) {
           const characters = text.getValueCommand("letras");
           const { from, chat } = message;
@@ -97,6 +99,7 @@ Duvidas? Por favor, utilize o comando /ajuda, nele voce encontra um guia rápido
             "number-alphabet"
           );
         }
+        
         if (text.isCommandExist("iniciais")) {
           const characters = text.getValueCommand("iniciais");
           const { from, chat } = message;
