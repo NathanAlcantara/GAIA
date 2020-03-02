@@ -1,11 +1,11 @@
 import json
 import requests
 from boto3 import client
-from awsHelper import OK_RESPONSE, ERROR_RESPONSE, publishSnsTopic, environment
+from awsHelper import OK_RESPONSE, ERROR_RESPONSE, publishSnsTopic, Telegram_Token
 
 
 def get_telegram_file(file_id):
-    telegram_token = environment['token']
+    telegram_token = Telegram_Token
     bot_url = 'https://api.telegram.org/bot{}/'.format(telegram_token)
     file_url = 'https://api.telegram.org/file/bot{}/'.format(telegram_token)
 
