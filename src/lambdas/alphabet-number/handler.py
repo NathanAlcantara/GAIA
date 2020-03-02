@@ -13,21 +13,21 @@ logging.basicConfig(level=logging.INFO)
 
 
 def numeros(event, context):
-    logger.info('entrnou no conversor de letras para numeros o/')
+    logger.info('entrou no conversor de letras para numeros o/')
 
     message = json.loads(event['Records'][0]['Sns']['Message'])
 
     logger.info(message)
 
-    characteres = message['characteres']
+    characters = message['characters']
     chatId = message['chatId']
 
-    logger.info(characteres)
+    logger.info(characters)
     logger.info(chatId)
 
-    if characteres and chatId:
+    if characters and chatId:
 
-        Msg = str(characteres)
+        Msg = str(characters)
 
         MsgEnv = removerEspeciais(Msg)
         Resposta = alphabet_position(MsgEnv)

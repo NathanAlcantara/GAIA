@@ -1,4 +1,4 @@
-service: ${tenant}-help
+service: ${tenant}-telegram-downloader
 
 provider:
   name: aws
@@ -10,11 +10,11 @@ provider:
       Resource: "arn:aws:sns:*:*:*"
 
 functions:
-  help:
-    name: ${tenant}-help
-    description: Comando /ajuda com ajuda dinâmica
-    handler: handler.ajuda
+  telegramDownloader:
+    name: ${tenant}-telegram-downloader
+    description: Faz o download de arquivos do telegram
+    handler: handler.lambda_handler
     layers:
       - ${cf:${tenant}-python-layer-${opt:stage}.pythonLayer}
     events:
-      - sns: ${tenant}-help
+      - sns: ${tenant}-telegram-downloader

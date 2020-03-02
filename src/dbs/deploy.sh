@@ -1,5 +1,5 @@
 # /bin/bash
-echo "Deploying Api Gateway for Telegram"
+echo "Deploying Databases"
 echo -e "\n"
 
 env=$1;

@@ -3,8 +3,8 @@
   "Input": {
     "chatId": "string",
     "message": {
-      "characteres": "string"
+      "characters": "string"
     }
   },
-  "Output": "Publica a mensagem de  conversão de Numeros para letras no sns 'send-telegram-response'"
+  "Output": "Publica a mensagem de conversão de Números para letras no sns 'send-telegram-response'"
 }

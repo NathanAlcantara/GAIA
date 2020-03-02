@@ -4,80 +4,6 @@
 
 ### Telegram Bot
 
-#### Pre-requisitos:
-
-1. [Node](https://nodejs.org/en/)
-2. [Python](https://www.python.org)
-3. Serverless, `npm i -g serverless`
-4. Credenciais da [AWS](https://aws.amazon.com/pt/) (AccountId e SecretKey)
-5. Token do Bot criado com o [BotFather](https://telegram.me/BotFather)
-6. Uma conta no [serverless](https://dashboard.serverless.com), para acessar os dashboards
-
-#### Recomendados:
-
-- [Prettier - Code formatter for VSCode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-- [Python for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
-- [GitLens for VSCode](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
-
-#### For Dev:
-
-(Leia tudo antes de executar, por favor, obrigado x3)
-
-1. Primeiramente, na sua conta serverless você deve criar uma aplicação com o seu nome, ex: `david`;
-
-- Caso deseje usar o serverless dashboard para depuração você precisa [configurar](https://serverless.com/framework/docs/providers/aws/cli-reference/config-credentials/) a sua conta AWS
-
-- Após isso, podemos ver que no projeto temos uma pasta de scripts, onde existe um bash script chamado `deployAll.sh` onde será usado para criar nosso ambiente.
-
-2. Para isso, você precisa criar um arquivo chamado `environments.json` na raiz do projeto que vai conter as variáveis de ambiente:
-
-   - `TENANT`, o mesmo valor da aplicação criada no primeiro passo (o nome);
-   - `AWS_ACCOUNT_ID`, o id da sua conta gerado por algum administrador do projeto;
-   - `TELEGRAM_TOKEN`, o token do bot criado;
-
-   O arquivo deve seguir essa lógica (substituindo os placeholders por seus respectivos valores):
-
-   ```
-   {
-     "TENANT": "{tenant}",
-     "AWS_ACCOUNT_ID": "{accountId}",
-     "TELEGRAM_TOKEN": "{token}",
-     "END_FILE": "END_FILE"
-   }
-   ```
-
-   (a última linha deve conter o `END_FILE` por complicações com virgulas no final da linha que em um futuro não tão distante será corrigido. xD)
-
-   <strong>ATENÇÃO!! NÃO COMMITAR O ARQUIVO `ENVIRONMENTS.JSON`!!</strong>
-
-3. Sendo a primeira vez que o ambiente está sendo montado, deve-se criar o seu path com o nome do seu tenant no API Gateway e exporta-lo (não esqueça de commitar direto na branch principal logo ao criar para todos terem acesso), basta seguir o padrão que hoje já existe, por exemplo:
-
-    Para criar o path (substitua `tenant` pelo nome do seu tenant):
-
-    ```
-    GAIApiPathTenant:
-    Type: AWS::ApiGateway::Resource
-    Properties:
-      RestApiId: { Ref: "GAIApi" }
-      ParentId: { Ref: "GAIApiPathTelegram" }
-      PathPart: tenant
-    ```
-
-    Para exportar ele:
-
-    ```
-    apiGatewayRestApiPathTenant:
-      Value:
-        Ref: GAIApiPathTenant
-      Export:
-        Name: GAIApiGateway-tenantPath
-    ```
-
-4. Por fim, basta rodar `npm run deployDev` que o bash será executado criando a estrutura serverless totalmente do seu ambiente na aws.
-
-5. Agora, para configurar o seu bot com a aplicação basta fazer uma chamada get (seja por Postman, Curl ou até mesmo pelo navegador) para a url `https://63sa9mac33.execute-api.us-east-1.amazonaws.com/dev/telegram/tenant` (lembrando de mudar `tenant` pelo nome do seu tenant) e voilá, seu bot está pronto para responder aos comandos! <br>
-Tente `/start` e veja a mágica acontecendo! xD
-
 #### Sobre a aplicação:
 
 Cada serviço criado é totalmente agnóstico, cada um tem seu meio único e isolado de realizar deploy, o comando acima é apenas para inicializar o ambiente, a partir dai, sempre que for fazer qualquer mudança atente-se de executar apenas o deploy daquele serviço, casos a parte como layers que são dependências de todas as lambdas devem realizar o deploy de cada lambda dependente dela, ao criar um novo serviço lembre-se disso e de incluir ele no deploy principal ou no deploy de uma layer.
@@ -102,6 +28,82 @@ PSSSS: Temos uma pasta chamada `docs` onde lá fica definido os contratos de tod
   "Output": "Description" //Breve descrição da saída da lambda (ex: publica em um sns, manda uma string direto para o telegram, salva um arquivo no s3, etc...)
 }
 ```
+
+#### Pre-requisitos:
+
+1. [Node](https://nodejs.org/en/)
+2. [Python](https://www.python.org)
+3. Serverless, `npm i -g serverless`
+4. Credenciais da [AWS](https://aws.amazon.com/pt/) (AccountId e SecretKey)
+5. Token do Bot criado com o [BotFather](https://telegram.me/BotFather)
+
+BONUS
+
+1. Uma conta no [serverless](https://dashboard.serverless.com), caso deseje acessar os dashboards
+
+#### Recomendados:
+
+- [Prettier - Code formatter for VSCode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [Python for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+- [GitLens for VSCode](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+
+#### For Dev:
+
+(Leia tudo antes de executar, por favor, obrigado x3)
+
+1. Primeiramente você precisa [configurar](https://serverless.com/framework/docs/providers/aws/cli-reference/config-credentials) a sua conta AWS no serverless.
+
+   - Caso deseje usar o serverless dashboard para depuração você precisa adicionar parâmetros nos arquivos `serverless.yml` que deseja depurar, segue [exemplo](https://serverless.com/framework/docs/dashboard/#enabling-the-dashboard-on-existing-serverless-framework-services)
+
+2. Para usar suas variáveis de ambiente, você precisa criar um arquivo chamado `environment.json` na raiz do projeto que vai conter as variáveis de ambiente:
+
+   - `TENANT`, o nome do seu tenant, normalmente seu primeiro nome;
+   - `AWS_ACCOUNT_ID`, o id da sua conta aws;
+   - `TELEGRAM_TOKEN`, o token do bot criado;
+
+   O arquivo deve seguir essa lógica (substituindo os placeholders por seus respectivos valores):
+
+   ```
+   {
+     "TENANT": "{tenant}",
+     "AWS_ACCOUNT_ID": "{accountId}",
+     "TELEGRAM_TOKEN": "{token}",
+     "END_FILE": "END_FILE"
+   }
+   ```
+
+   (a última linha deve conter o `END_FILE` por complicações com virgulas no final da linha que em um futuro não tão distante será corrigido. xD)
+
+   <strong>ATENÇÃO!! NÃO COMMITAR O ARQUIVO `ENVIRONMENT.JSON`!!</strong>
+
+3. Sendo a primeira vez que o ambiente está sendo montado, deve-se criar o seu path com o nome do seu tenant no API Gateway e exporta-lo (não esqueça de commitar direto na branch principal logo ao criar para todos terem acesso), basta seguir o padrão que hoje já existe, por exemplo:
+
+   Para criar o path (substitua `tenant` pelo nome do seu tenant):
+
+   ```
+   GAIApiPathTenant:
+   Type: AWS::ApiGateway::Resource
+   Properties:
+     RestApiId: { Ref: "GAIApi" }
+     ParentId: { Ref: "GAIApiPathTelegram" }
+     PathPart: tenant
+   ```
+
+   Para exportar ele:
+
+   ```
+   apiGatewayRestApiPathTenant:
+     Value:
+       Ref: GAIApiPathTenant
+     Export:
+       Name: GAIApiGateway-tenantPath
+   ```
+
+4. Por fim, basta rodar `npm run deployDev` que o bash será executado criando a estrutura serverless totalmente do seu ambiente na aws.
+
+5. Agora, para configurar o seu bot com a aplicação basta fazer uma chamada get (seja por Postman, Curl ou até mesmo pelo navegador) para a url `https://63sa9mac33.execute-api.us-east-1.amazonaws.com/dev/telegram/tenant` (lembrando de mudar `tenant` pelo nome do seu tenant) e voilá, seu bot está pronto para responder aos comandos!
+
+6. Tente `/start` e veja a mágica acontecendo! xD
 
 ## Escopo:
 

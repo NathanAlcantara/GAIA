@@ -12,13 +12,11 @@ cp ../../../environment.json environment.json
 
 cd layer
 
+cp ../environment.json environment.json
+
+cd python/lib/python3.7/site-packages
+
 cp ../../../../environment.json environment.json
-
-cd ..
-
-cd layer/python/lib/python3.7/site-packages
-
-cp ../../../../../../../../environment.json environment.json
 
 cd ../../../../..
 
@@ -30,9 +28,9 @@ serverless deploy --stage $env -v -r us-east-1;
 
 sed -i "s/$TENANT/\${tenant}/" serverless.yml;
 
-rm layer/environment.json
-
 rm layer/python/lib/python3.7/site-packages/environment.json 
+
+rm layer/environment.json
 
 rm environment.json
 
@@ -44,7 +42,12 @@ cd ../..
 
 cd lambdas
 
-cd count-characteres
+cd help
+bash deploy.sh $env
+
+cd ..
+
+cd count-characters
 bash deploy.sh $env
 
 cd ..

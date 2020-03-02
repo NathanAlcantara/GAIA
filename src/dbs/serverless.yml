@@ -1,0 +1,22 @@
+service: databases
+
+provider:
+  name: aws
+
+resources:
+  Resources:
+    ContextTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Context-${opt:stage}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: chatId
+            AttributeType: S
+          - AttributeName: command
+            AttributeType: S
+        KeySchema:
+          - AttributeName: chatId
+            KeyType: HASH
+          - AttributeName: command
+            KeyType: RANGE
