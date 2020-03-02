@@ -21,6 +21,11 @@ bash deploy.sh $env
 
 cd ..
 
+cd dbs
+bash deploy.sh $env
+
+cd ..
+
 cd layers
 
 cd node-layer
