@@ -45,10 +45,25 @@ bash deploy.sh $env
 
 cd ..
 
-cd telegram-handler
+cd context-read
 bash deploy.sh $env
 
 cd ..
 
-cd telegram-response
+cd context-write
+bash deploy.sh $env
+
+cd ..
+
+cd handler
+bash deploy.sh $env
+
+cd ..
+
+cd command
+bash deploy.sh $env
+
+cd ..
+
+cd response
 bash deploy.sh $env

@@ -4,7 +4,8 @@ const { extractMessageOfEventSns } = require("/opt/utils/awsHelpers");
 const { executeMethodBot } = require("/opt/utils/botHelpers");
 const { generateError, generateSuccess } = require("/opt/utils/helpers");
 
-module.exports.send = async (event, context, callback) => {
+module.exports.send = async (event, ctx, callback) => {
+  
   const data = extractMessageOfEventSns(event);
 
   console.log(`Recebendo para envio o evento: ${JSON.stringify(data)}`);

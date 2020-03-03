@@ -1,4 +1,4 @@
-service: ${tenant}-telegram-downloader
+service: ${tenant}-downloader-bot
 
 provider:
   name: aws

@@ -4,7 +4,7 @@ const { TENANT } = require("/opt/utils/awsHelpers");
 const { executeMethodBot, TELEGRAM_TOKEN } = require("/opt/utils/botHelpers");
 const { generateError, generateSuccess } = require("/opt/utils/helpers");
 
-module.exports.setWebhook = async (event, context, callback) => {
+module.exports.setWebhook = async (event, ctx, callback) => {
   console.log("Iniciando configuração do bot");
 
   const requestContext = event.requestContext;
