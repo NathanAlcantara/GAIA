@@ -9,3 +9,7 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: gaia-provas
+    PublicoBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: gaia-publico

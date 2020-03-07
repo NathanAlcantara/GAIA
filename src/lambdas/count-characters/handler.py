@@ -2,7 +2,9 @@ import json
 import sys
 import logging
 import unicodedata
-from awsHelper import OK_RESPONSE, ERROR_RESPONSE, publishSnsTopic
+from io import StringIO
+from awsHelper import OK_RESPONSE, ERROR_RESPONSE, publishSnsTopic, GetPublicLink
+from textHelper import removePontuacao
 
 logger = logging.getLogger()
 if logger.handlers:
@@ -29,16 +31,19 @@ def count(event, context):
         Msg = str(characters)
         lenMsgBruta = len(Msg)
 
+        # verificar se há mais de uma linha
+        LisMsg = str(Msg).splitlines()
+        if len(ListMsg) > 1:
+            TextoLongo(ListMsg, chatId)
+            return OK_RESPONSE
+
         Msg = Msg.replace('\r', '').replace(
             '\n', '')  # removemos a quebra de linha por nada :(
         lenMsg = len(Msg)
         lenMsgSemEspaco = len(Msg.replace(" ", ""))
 
         MsgSemPonto = Msg.replace(" ", "")  # msg sem espaco
-        tbl = dict.fromkeys(i for i in range(sys.maxunicode)
-                            if unicodedata.category(chr(i)).startswith('P'))  # tabela para pontuacao unicode
-        # msg sem ponto e espaco, removendo pontuacao
-        MsgSemPonto = MsgSemPonto.translate(tbl)
+        MsgSemPonto = removePontuacao(MsgSemPonto)
         # subtrai seis devido a palavra 'contar'
         lenMsgSemPonto = len(MsgSemPonto)
         lenMsgSemPontoEspacada = (lenMsg - lenMsgSemEspaco) + lenMsgSemPonto
@@ -79,3 +84,43 @@ def count(event, context):
         return OK_RESPONSE
 
     return ERROR_RESPONSE
+
+
+def TextoLongo(LisMsg, chatId):
+    ctLinha = LenMsg = LenMsgSemEspaco = LenMsgSemPonto = LenMsgEspacada = 0
+    MsgUpper = MsgLower = 0
+    Resposta = 'Linha;Total;Sem Espaços;Sem Pontuação;Sem Pontuação e com Espaços;Maiúsculas;Minúsculas'
+    for Linha in LisMsg:
+        ctLinha = ctLinha + 1
+        Linha = Linha.replace('\r', '').replace(
+            '\n', '')  # removi as quebras, se houver ?
+        LenLinha = len(Linha)  # tamanho da linha
+        LenLinhaSemEspaco = len(Linha.replace(" ", ""))
+        LinhaSemPonto = removePontuacao(Linha)
+        LenLinhaSemPonto = len(LinhaSemPonto)
+        LenLinhaEspacada = (LenLinha - LenLinhaSemPonto) + LenLinhaSemPonto
+        LinhaUpper = sum(map(str.isupper, Linha))
+        LinhaLower = sum(map(str.islower, Linha))
+        Resposta = Resposta + "\n" + "{};{};{};{};{};{};{}".format(
+            ctLinha, LenLinha, LenLinhaSemEspaco, LenLinhaSemPonto, LenLinhaEspacada, LinhaUpper, LinhaLower)
+
+        # aqui somamos de todo o texto
+        LenMsg = LenMsg + LenLinha
+        LenMsgSemEspaco = LenMsgSemEspaco + LenLinhaSemEspaco
+        LenMsgSemPonto = LenMsgSemPonto + LenLinhaSemPonto
+        LenMsgEspacada = LenMsgEspacada + LenLinhaEspacada
+        MsgUpper = MsgUpper + LinhaUpper
+        MsgLower = MsgLower + LinhaLower
+
+    Resposta = Resposta + "\n" + "{};{};{};{};{};{};{}".format(
+        "Total", LenMsg, LenMsgSemEspaco, LenMsgSemPonto, LenMsgEspacada, MsgUpper, MsgLower)
+
+    logger.info(Resposta)
+
+    RespostaIO = StringIO(Resposta)
+
+    LinkPublic = GetPublicLink(RespostaIO, 'csv', 6000, 'gaia-publico')
+
+    MESSAGE = json.dumps(
+        {'text': LinkPublic, 'messageType': 'document'})
+    publishSnsTopic(chatId, MESSAGE)
