@@ -53,7 +53,7 @@ Duvidas? Por favor, utilize o comando /ajuda, nele voce encontra um guia rápido
         }
 
         if (text.isCommandExist("contar")) {
-          const characteres = text.getValueCommand("contar");
+          const characters = text.getValueCommand("contar");
           const { from, chat } = message;
 
           console.log(`O usuário ${from.first_name} solicitou uma contagem`);
@@ -99,7 +99,7 @@ Duvidas? Por favor, utilize o comando /ajuda, nele voce encontra um guia rápido
             "number-alphabet"
           );
         }
-        
+
         if (text.isCommandExist("iniciais")) {
           const characters = text.getValueCommand("iniciais");
           const { from, chat } = message;

@@ -2,9 +2,11 @@ import json
 import sys
 import logging
 import unicodedata
+import csv
 from io import StringIO
 from awsHelper import OK_RESPONSE, ERROR_RESPONSE, publishSnsTopic, GetPublicLink
 from textHelper import removePontuacao
+from boto3 import client
 
 logger = logging.getLogger()
 if logger.handlers:
@@ -33,8 +35,8 @@ def count(event, context):
 
         # verificar se há mais de uma linha
         LisMsg = str(Msg).splitlines()
-        if len(ListMsg) > 1:
-            TextoLongo(ListMsg, chatId)
+        if len(LisMsg) > 1:
+            TextoLongo(LisMsg, chatId)
             return OK_RESPONSE
 
         Msg = Msg.replace('\r', '').replace(
@@ -92,8 +94,7 @@ def TextoLongo(LisMsg, chatId):
     Resposta = 'Linha;Total;Sem Espaços;Sem Pontuação;Sem Pontuação e com Espaços;Maiúsculas;Minúsculas'
     for Linha in LisMsg:
         ctLinha = ctLinha + 1
-        Linha = Linha.replace('\r', '').replace(
-            '\n', '')  # removi as quebras, se houver ?
+        Linha = Linha.replace('\r', '')
         LenLinha = len(Linha)  # tamanho da linha
         LenLinhaSemEspaco = len(Linha.replace(" ", ""))
         LinhaSemPonto = removePontuacao(Linha)
@@ -112,14 +113,30 @@ def TextoLongo(LisMsg, chatId):
         MsgUpper = MsgUpper + LinhaUpper
         MsgLower = MsgLower + LinhaLower
 
+        logger.info(ctLinha)
+
     Resposta = Resposta + "\n" + "{};{};{};{};{};{};{}".format(
         "Total", LenMsg, LenMsgSemEspaco, LenMsgSemPonto, LenMsgEspacada, MsgUpper, MsgLower)
 
     logger.info(Resposta)
 
-    RespostaIO = StringIO(Resposta)
+    # RespostaIO = StringIO(Resposta)
 
-    LinkPublic = GetPublicLink(RespostaIO, 'csv', 6000, 'gaia-publico')
+    logger.info('aqui vamos publicar o link.. vamos ver se entra')
+    LinkPublic = GetPublicLink(Resposta, 'csv', 6000, 'gaia-publico')
+
+    # # Save the Query results to a CSV file
+    # fp = open('/tmp/contar_1.csv', 'w')
+    # fp.write(Resposta)
+    # fp.close
+
+    # logger.info('aqui vamos publicar o link.. vamos ver se entra')
+    # with open('/tmp/contar_1.csv', 'rb') as data:
+    #     LinkPublic = GetPublicLink(data, 'csv', 6000, 'gaia-publico')
+    #     # s3_client = client('s3')
+    #     # s3_client.put_object(
+    #     #     Body=data, Bucket='gaia-publico', Key='teste12.csv')
+    #     # return OK_RESPONSE
 
     MESSAGE = json.dumps(
         {'text': LinkPublic, 'messageType': 'document'})
