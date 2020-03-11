@@ -4,7 +4,7 @@ import logging
 import unicodedata
 import csv
 from io import StringIO
-from awsHelper import OK_RESPONSE, ERROR_RESPONSE, publishSnsTopic, GetPublicLink
+from awsHelper import OK_RESPONSE, ERROR_RESPONSE, publishSnsTopic, SaveTXTinBucket
 from textHelper import removePontuacao
 from boto3 import client
 
@@ -120,24 +120,9 @@ def TextoLongo(LisMsg, chatId):
 
     logger.info(Resposta)
 
-    # RespostaIO = StringIO(Resposta)
-
     logger.info('aqui vamos publicar o link.. vamos ver se entra')
-    LinkPublic = GetPublicLink(Resposta, 'csv', 6000, 'gaia-publico')
+    FileID = SaveTXTinBucket(Resposta, 'csv', 'gaia-publico')
 
-    # # Save the Query results to a CSV file
-    # fp = open('/tmp/contar_1.csv', 'w')
-    # fp.write(Resposta)
-    # fp.close
+    MESSAGE = json.dumps({'bucketFile': FileID, 'messageType': 'document'})
 
-    # logger.info('aqui vamos publicar o link.. vamos ver se entra')
-    # with open('/tmp/contar_1.csv', 'rb') as data:
-    #     LinkPublic = GetPublicLink(data, 'csv', 6000, 'gaia-publico')
-    #     # s3_client = client('s3')
-    #     # s3_client.put_object(
-    #     #     Body=data, Bucket='gaia-publico', Key='teste12.csv')
-    #     # return OK_RESPONSE
-
-    MESSAGE = json.dumps(
-        {'text': LinkPublic, 'messageType': 'document'})
     publishSnsTopic(chatId, MESSAGE)
