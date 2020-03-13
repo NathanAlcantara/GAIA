@@ -1,0 +1,11 @@
+{
+  "SNS": "handle-telegram-command",
+  "Input": {
+    "message": "TelegramMessage (documento da mensagem do telegram)",
+    "context?": {
+      "string": "any"
+    },
+    "command?": "string"
+  },
+  "Output": "Publica no sns do commando destinatário (seja via propriedade ou dentro da mensagem)"
+}
