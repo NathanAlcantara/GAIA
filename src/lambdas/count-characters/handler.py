@@ -4,7 +4,7 @@ import logging
 import unicodedata
 import csv
 from io import StringIO
-from awsHelper import OK_RESPONSE, ERROR_RESPONSE, publishSnsTopic, SaveTXTinBucket
+from awsHelper import OK_RESPONSE, ERROR_RESPONSE, publishSnsTopic
 from textHelper import removePontuacao
 from boto3 import client
 
