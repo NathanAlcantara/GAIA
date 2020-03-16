@@ -1,0 +1,12 @@
+{
+  "user": {
+      "name": "string",
+      "photo_file": "string",
+      "birth_date": "string",
+      "chat_id": "int",
+      "access_level": "int",
+      "status": "int",
+      "cpf": "int",
+      "addresss": "string"
+  }
+}
