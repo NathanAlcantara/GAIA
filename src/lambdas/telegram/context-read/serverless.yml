@@ -1,0 +1,20 @@
+service: ${tenant}-context-read-bot
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - sns:Publish
+      Resource: "arn:aws:sns:*:*:*"
+
+functions:
+  telegramContextRead:
+    name: ${tenant}-context-read
+    description: Read and send the context of user
+    handler: handler.read
+    layers:
+      - ${cf:${tenant}-node-layer-${opt:stage}.nodeLayer}
+    events:
+      - sns: ${tenant}-read-telegram-context

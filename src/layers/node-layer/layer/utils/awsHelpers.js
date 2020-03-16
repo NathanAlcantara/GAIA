@@ -19,7 +19,9 @@ module.exports.publishSnsTopic = (
 ) => {
   const sns = new aws.SNS({ region: AWS_REGION });
 
-  payload.messageType = payload.messageType.toLowerCase();
+  if (payload && payload.messageType) {
+    payload.messageType = payload.messageType.toLowerCase();
+  }
 
   const body = JSON.stringify({ ...{ chatId }, ...payload });
 

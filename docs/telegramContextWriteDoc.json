@@ -1,0 +1,11 @@
+{
+  "SNS": "write-telegram-context",
+  "Input": {
+    "chatId": "string",
+    "command": "string",
+    "context": {
+      "string": "any"
+    }
+  },
+  "Output": "Salva o contexto do usuário no commando especificado"
+}

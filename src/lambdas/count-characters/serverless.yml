@@ -8,6 +8,22 @@ provider:
       Action:
         - sns:Publish
       Resource: "arn:aws:sns:*:*:*"
+    - Effect: Allow
+      Action:
+        - s3:ListBucket
+      Resource: "arn:aws:s3:::*"
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+      Resource: "arn:aws:s3:::*"
+    - Effect: Allow
+      Action:
+        - s3:GetObjectAcl
+      Resource: "arn:aws:s3:::*"
+    - Effect: Allow
+      Action:
+        - s3:PutObjectAcl
+      Resource: "arn:aws:s3:::*"
 
 functions:
   countCharacters:

@@ -1,0 +1,20 @@
+service: ${tenant}-context-write-bot
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - sns:Publish
+      Resource: "arn:aws:sns:*:*:*"
+
+functions:
+  telegramContextWrite:
+    name: ${tenant}-context-write
+    description: Write the context of user
+    handler: handler.write
+    layers:
+      - ${cf:${tenant}-node-layer-${opt:stage}.nodeLayer}
+    events:
+      - sns: ${tenant}-write-telegram-context

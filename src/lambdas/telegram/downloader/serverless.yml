@@ -1,0 +1,20 @@
+service: ${tenant}-downloader-bot
+
+provider:
+  name: aws
+  runtime: python3.7
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - sns:Publish
+      Resource: "arn:aws:sns:*:*:*"
+
+functions:
+  telegramDownloader:
+    name: ${tenant}-telegram-downloader
+    description: Faz o download de arquivos do telegram
+    handler: handler.lambda_handler
+    layers:
+      - ${cf:${tenant}-python-layer-${opt:stage}.pythonLayer}
+    events:
+      - sns: ${tenant}-telegram-downloader

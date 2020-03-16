@@ -67,6 +67,12 @@ bash deploy.sh $env
 
 cd ..
 
+cd new-user-conversation
+
+bash deploy.sh $env
+
+cd ..
+
 cd telegram
 cd telegram-downloader
 bash deploy.sh $env

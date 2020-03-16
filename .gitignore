@@ -15,6 +15,9 @@ environment.json
 .DS_Store
 chaves
 teste.py
+teste2.py
+antigo.py
+old_but_gold
 
 #IDE
 *.idea

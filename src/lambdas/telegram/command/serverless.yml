@@ -1,0 +1,20 @@
+service: ${tenant}-command-bot
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - sns:Publish
+      Resource: "arn:aws:sns:*:*:*"
+
+functions:
+  telegramCommand:
+    name: ${tenant}-telegram-command
+    description: Handles the commands from telegram
+    handler: handler.command
+    layers:
+      - ${cf:${tenant}-node-layer-${opt:stage}.nodeLayer}
+    events:
+      - sns: ${tenant}-handle-telegram-command
