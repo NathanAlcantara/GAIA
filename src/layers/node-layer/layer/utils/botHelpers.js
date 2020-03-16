@@ -7,17 +7,34 @@ const { TELEGRAM_TOKEN } = environment;
 
 module.exports.TELEGRAM_TOKEN = TELEGRAM_TOKEN;
 
-module.exports.getValueCommandPrototype = function(command) {
+module.exports.COMMANDS = Object.freeze({
+  START: "start",
+  AJUDA: "ajuda",
+  CONTAR: "contar",
+  NUMEROS: "numeros",
+  LETRAS: "letras",
+  INICIAIS: "iniciais"
+});
+
+module.exports.hasAnyCommandOnText = (text) => {
+  return Object.values(this.COMMANDS).some(command => this.isCommandExistOnText(command, text));
+}
+
+module.exports.getAllCommandsOnText = (text) => {
+  return Object.values(this.COMMANDS).filter(command => this.isCommandExistOnText(command, text));
+}
+
+module.exports.getCommandValueOnText = (command, text) => {
   command = `/${command}`;
   const regex = new RegExp(command);
-  const { input } = this.match(regex);
+  const { input } = text.match(regex);
   return input.substring(input.indexOf(command) + command.length);
 };
 
-module.exports.isCommandExistPrototype = function(command) {
+module.exports.isCommandExistOnText = (command, text) => {
   command = `/${command}`;
   const regex = new RegExp(command);
-  return Boolean(this.match(regex));
+  return Boolean(text.match(regex));
 };
 
 module.exports.executeMethodBot = async (methodName, methodBody) => {
