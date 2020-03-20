@@ -20,11 +20,12 @@ module.exports.generateSuccess = (
 module.exports.generateError = (
   callback,
   payload = "Oops, something went wrong",
+  stack,
   code = 500
 ) => {
   const body = JSON.stringify(payload);
 
-  console.error(body);
+  console.error(body, stack);
 
   const response = {
     statusCode: code,

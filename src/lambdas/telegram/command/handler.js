@@ -1,5 +1,6 @@
 "use strict";
 
+const { writeContext } = require("/opt/utils/dynamodbHelpers");
 const { extractMessageOfEventSns, publishSnsTopic } = require("/opt/utils/awsHelpers");
 const { COMMANDS, getCommandValueOnText } = require("/opt/utils/botHelpers");
 const { generateError, generateSuccess } = require("/opt/utils/helpers");
@@ -49,15 +50,12 @@ module.exports.command = (event, ctx, callback) => {
 
 function handleStartCommand(message, context) {
   const { from, chat } = message;
+  const messageType = "text";
   const command = COMMANDS.START;
   const chatId = chat.id;
 
-  console.log(`Context: ${context}`)
-
   if (context) {
-    const messageType = "text";
-
-    console.log(`Iniciando conversa com o ${from.first_name}`);
+    console.log(`Iniciando conversa com o ${from.first_name}, com o contexto: ${JSON.stringify(context)}`);
 
     const textAgain = `Olá ${from.first_name}, ainda com alguma dúvida?
 Experimente usar /ajuda, você pode descobrir do que sou capaz xD`;
@@ -67,11 +65,15 @@ Experimente usar /ajuda, você pode descobrir do que sou capaz xD`;
       : `Bem vindo, eu sou Gaia, o Cacique dos bots!
 Duvidas? Por favor, utilize o comando /ajuda, nele voce encontra um guia rápido e tudo o que voce precisa saber sobre mim ;)`;
 
-    publishSnsTopic(chatId, { command, context: { alreadyWelcome: true } }, "write-telegram-context");
+    if (!context.alreadyWelcome) {
+      writeContext(chatId, command, { alreadyWelcome: true });
+    }
 
     publishSnsTopic(chatId, { text, messageType });
   } else {
-    publishSnsTopic(chatId, { message, command }, "read-telegram-context");
+    const contextDefault = { alreadyWelcome: false };
+
+    publishSnsTopic(chatId, { message, command, contextDefault }, "read-telegram-context");
   }
 };
 

@@ -38,6 +38,11 @@ cd ../..
 
 cd lambdas
 
+cd dynamo-write
+bash deploy.sh $env
+
+cd ..
+
 cd telegram
 
 cd set-webhook
@@ -46,11 +51,6 @@ bash deploy.sh $env
 cd ..
 
 cd context-read
-bash deploy.sh $env
-
-cd ..
-
-cd context-write
 bash deploy.sh $env
 
 cd ..

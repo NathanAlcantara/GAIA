@@ -3,6 +3,7 @@
   "Input": {
     "chatId": "string",
     "message": "TelegramMessage (documento da mensagem do telegram)",
+    "contextDefault": "objeto do contexto padrão caso não seja encontrado",
     "command?": "string"
   },
   "Output": "Publica no sns handle-telegram-command o contexto atual do usuário ou do commando"
