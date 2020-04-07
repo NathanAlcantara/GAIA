@@ -1,9 +1,8 @@
 {
-  "SNS": "write-telegram-context",
+  "SNS": "write-dynamo",
   "Input": {
-    "chatId": "string",
-    "command": "string",
-    "context": {
+    "tableName": "string",
+    "item": {
       "string": "any"
     }
   },

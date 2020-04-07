@@ -1,4 +1,4 @@
-service: ${tenant}-context-write-bot
+service: ${tenant}-dynamo-write
 
 provider:
   name: aws
@@ -7,14 +7,17 @@ provider:
     - Effect: Allow
       Action:
         - sns:Publish
-      Resource: "arn:aws:sns:*:*:*"
+        - dynamodb:PutItem
+      Resource: 
+        - "arn:aws:sns:*:*:*"
+        - "arn:aws:dynamodb:*:*:*"
 
 functions:
   telegramContextWrite:
-    name: ${tenant}-context-write
-    description: Write the context of user
+    name: ${tenant}-dynamo-write
+    description: Write something in dynamoDB
     handler: handler.write
     layers:
       - ${cf:${tenant}-node-layer-${opt:stage}.nodeLayer}
     events:
-      - sns: ${tenant}-write-telegram-context
+      - sns: ${tenant}-write-dynamo

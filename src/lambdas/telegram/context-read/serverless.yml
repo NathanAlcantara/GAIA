@@ -3,11 +3,16 @@ service: ${tenant}-context-read-bot
 provider:
   name: aws
   runtime: nodejs10.x
+  environment:
+    STAGE: ${opt:stage}
   iamRoleStatements:
     - Effect: Allow
       Action:
         - sns:Publish
-      Resource: "arn:aws:sns:*:*:*"
+        - dynamodb:Query
+      Resource: 
+        - "arn:aws:sns:*:*:*"
+        - "arn:aws:dynamodb:*:*:*"
 
 functions:
   telegramContextRead:
