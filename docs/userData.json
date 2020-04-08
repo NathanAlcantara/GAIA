@@ -6,7 +6,8 @@
       "chat_id": "int",
       "access_level": "int",
       "status": "int",
-      "cpf": "int",
-      "addresss": "string"
+      "cpf": "string",
+      "addresss": "string",
+      "create_date": "string"
   }
 }

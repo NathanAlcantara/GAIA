@@ -1,0 +1,12 @@
+{
+    "SNS": "new-user-convo",
+    "Input": {
+      "chatId": "string",
+      "message": {
+        "string":"any"
+      }
+    },
+    "Output?": {
+      "status": "int"
+    }
+  }
