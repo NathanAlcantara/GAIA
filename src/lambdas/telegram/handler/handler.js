@@ -17,8 +17,8 @@ module.exports.main = (event, ctx, callback) => {
     const { message } = body;
 
     if (message) {
-      const { text, from, chat } = message;
-      const chatId = chat.id;
+      const { text, from, chat_id } = message;
+      const chatId = chat_id;
 
       console.log(`Iniciando conversa com o ${from.first_name}`);
 
@@ -34,7 +34,7 @@ module.exports.main = (event, ctx, callback) => {
         } else {
           console.log("Nenhum comando encontrado, iniciando busca de contexto");
 
-          publishSnsTopic(chatId, { message }, "context-read");
+          publishSnsTopic(chatId, { message }, "read-telegram-context");
         }
       }
     }

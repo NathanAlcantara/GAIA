@@ -1,5 +1,5 @@
 # /bin/bash
-echo "Deploying Telegram Response"
+echo "Deploying Telegram Context Read"
 echo -e "\n"
 
 env=$1;

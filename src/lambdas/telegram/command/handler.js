@@ -1,7 +1,8 @@
 "use strict";
 
+const { writeContext } = require("/opt/utils/dynamodbHelpers");
 const { extractMessageOfEventSns, publishSnsTopic } = require("/opt/utils/awsHelpers");
-const { COMMANDS, getCommandValueOnText, isCommandExistOnText } = require("/opt/utils/botHelpers");
+const { COMMANDS, getCommandValueOnText } = require("/opt/utils/botHelpers");
 const { generateError, generateSuccess } = require("/opt/utils/helpers");
 
 module.exports.command = (event, ctx, callback) => {
@@ -16,53 +17,27 @@ module.exports.command = (event, ctx, callback) => {
     const { text } = message;
 
     if (text) {
-      if (command) {
-        switch (command) {
-          case COMMANDS.START:
-            handleStartCommand(message);
-            break;
-          case COMMANDS.AJUDA:
-            handleHelpCommand(text, message);
-            break;
-          case COMMANDS.CONTAR:
-            handleCountCommand(text, message);
-            break;
-          case COMMANDS.NUMEROS:
-            handleNumberCommand(text, message);
-            break;
-          case COMMANDS.LETRAS:
-            handleLettersCommand(text, message);
-            break;
-          case COMMANDS.INICIAIS:
-            handleInitialsCommand(text, message);
-            break;
-        }
-      } else {
-        if (isCommandExistOnText(COMMANDS.START, text)) {
-          handleStartCommand(message);
-        }
-
-        if (isCommandExistOnText(COMMANDS.AJUDA, text)) {
+      switch (command) {
+        case COMMANDS.START:
+          handleStartCommand(message, context);
+          break;
+        case COMMANDS.AJUDA:
           handleHelpCommand(text, message);
-        }
-
-        if (isCommandExistOnText(COMMANDS.CONTAR, text)) {
+          break;
+        case COMMANDS.CONTAR:
           handleCountCommand(text, message);
-        }
-
-        if (isCommandExistOnText(COMMANDS.NUMEROS, text)) {
+          break;
+        case COMMANDS.NUMEROS:
           handleNumberCommand(text, message);
-        }
-
-        if (isCommandExistOnText(COMMANDS.LETRAS, text)) {
+          break;
+        case COMMANDS.LETRAS:
           handleLettersCommand(text, message);
-        }
-
-        if (isCommandExistOnText(COMMANDS.INICIAIS, text)) {
+          break;
+        case COMMANDS.INICIAIS:
           handleInitialsCommand(text, message);
-        }
-      }
-    }
+          break;
+      };
+    };
 
     return generateSuccess(callback);
   }
@@ -73,17 +48,33 @@ module.exports.command = (event, ctx, callback) => {
   );
 };
 
-function handleStartCommand(message) {
-  const messageType = "text";
+function handleStartCommand(message, context) {
   const { from, chat } = message;
+  const messageType = "text";
+  const command = COMMANDS.START;
   const chatId = chat.id;
 
-  console.log(`Iniciando conversa com o ${from.first_name}`);
+  if (context) {
+    console.log(`Iniciando conversa com o ${from.first_name}, com o contexto: ${JSON.stringify(context)}`);
 
-  const text = `Bem vindo, eu sou Gaia, o Cacique dos bots!
+    const textAgain = `Olá ${from.first_name}, ainda com alguma dúvida?
+Experimente usar /ajuda, você pode descobrir do que sou capaz xD`;
+
+    const text = context.alreadyWelcome
+      ? textAgain
+      : `Bem vindo, eu sou Gaia, o Cacique dos bots!
 Duvidas? Por favor, utilize o comando /ajuda, nele voce encontra um guia rápido e tudo o que voce precisa saber sobre mim ;)`;
 
-  publishSnsTopic(chatId, { text, messageType });
+    if (!context.alreadyWelcome) {
+      writeContext(chatId, command, { alreadyWelcome: true });
+    }
+
+    publishSnsTopic(chatId, { text, messageType });
+  } else {
+    const contextDefault = { alreadyWelcome: false };
+
+    publishSnsTopic(chatId, { message, command, contextDefault }, "read-telegram-context");
+  }
 };
 
 function handleHelpCommand(text, message) {

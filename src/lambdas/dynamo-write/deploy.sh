@@ -1,5 +1,5 @@
 # /bin/bash
-echo "Deploying Telegram Response"
+echo "Deploying Dynamo Write"
 echo -e "\n"
 
 env=$1;
@@ -8,7 +8,7 @@ if [ -z $1 ]; then
     env="dev"
 fi
 
-cp ../../../../environment.json environment.json
+cp ../../../environment.json environment.json
 
 TENANT=$(sed -n 's/.*"TENANT": "\(.*\)",/\1/p' environment.json | tr '[:upper:]' '[:lower:]')
 
