@@ -23,3 +23,4 @@ old_but_gold
 *.idea
 **/venv
 .vscode
+.vscode/settings.json
