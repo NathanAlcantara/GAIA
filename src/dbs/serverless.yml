@@ -20,3 +20,14 @@ resources:
             KeyType: HASH
           - AttributeName: command
             KeyType: RANGE
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Users-${opt:stage}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: cpf
+            AttributeType: s
+        KeySchema:
+          - AttributeName: cpf
+            KeyType: HASH
