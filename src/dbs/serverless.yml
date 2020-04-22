@@ -27,7 +27,7 @@ resources:
         BillingMode: PAY_PER_REQUEST
         AttributeDefinitions:
           - AttributeName: cpf
-            AttributeType: s
+            AttributeType: S
         KeySchema:
           - AttributeName: cpf
             KeyType: HASH
