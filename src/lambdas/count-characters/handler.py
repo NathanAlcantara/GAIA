@@ -4,7 +4,7 @@ import logging
 import unicodedata
 import csv
 from io import StringIO
-from awsHelper import OK_RESPONSE, ERROR_RESPONSE, publishSnsTopic
+from awsHelper import OK_RESPONSE, ERROR_RESPONSE, publishSnsTopic, SaveTXTinBucket
 from textHelper import removePontuacao
 from boto3 import client
 
@@ -121,7 +121,7 @@ def TextoLongo(LisMsg, chatId):
     logger.info(Resposta)
 
     logger.info('aqui vamos publicar o link.. vamos ver se entra')
-    FileID = SaveTXTinBucket(Resposta, 'csv', 'gaia-publico')
+    FileID = SaveTXTinBucket(Resposta, 'zip', 'gaia-publico')
 
     MESSAGE = json.dumps({'bucketFile': FileID, 'messageType': 'document'})
 
